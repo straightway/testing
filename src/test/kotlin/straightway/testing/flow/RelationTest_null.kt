@@ -13,33 +13,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  ****************************************************************************/
-package straightway.testing
+package straightway.testing.flow
 
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import straightway.testing.assertDoesNotThrow
+import straightway.testing.assertFails
 
-internal class CallSequenceTest {
-    @Test
-    fun test_verifyActionExecutionOrder() {
-        val sut = CallSequence(0, 2, 1)
-        sut.actions[0]()
-        sut.actions[2]()
-        sut.actions[1]()
-        sut.assertCompleted()
-    }
+class RelationTest_null {
 
     @Test
-    fun test_getActionsInProperOrder() {
-        val sut = CallSequence(0, 2, 1)
-        for (action in sut.orderedActions) {
-            action()
-        }
-        sut.assertCompleted()
-    }
+    fun null_is_null() = assertDoesNotThrow { expect(null _is _null) }
 
     @Test
-    fun test_toString() {
-        val sut = CallSequence(0, 2, 1)
-        assertEquals("CallSequence(0, 2, 1)", sut.toString())
-    }
+    fun null_is_not_notnull() = assertFails { expect(null _is not-_null) }
+
+    @Test
+    fun notNull_is_not_null() = assertDoesNotThrow { expect(1 _is not-_null) }
+
+    @Test
+    fun notNull_is_notnull() = assertFails { expect(1 _is _null) }
 }
