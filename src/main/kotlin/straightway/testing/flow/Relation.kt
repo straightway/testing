@@ -35,10 +35,10 @@ interface WithOf : Relation
 interface WithHasAndOf : WithHas, WithOf
 interface Unary : Relation
 
-class Equal(predicate: (Any, Any) -> Boolean)
+class Equal(predicate: (Any, Any) -> Boolean = { a, b -> a == b })
     : Relation, StateExpr<WithTo>, FunExpr("equal", predicate)
 
-val equal = Equal({ a, b -> a == b })
+val equal = Equal()
 fun equalWithin(range: Any) = Equal({ a, b ->
     if (a is Number && b is Number && range is Number)
         (if (a < b) b - a else a - b) < range
