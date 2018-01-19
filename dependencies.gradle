@@ -17,6 +17,4 @@
  *
  */
 
-rootProject.projectDir = new File(rootProject.projectDir.parent)
-
-apply from: "dependencies.gradle"
+include 'testing'
