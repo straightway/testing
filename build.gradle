@@ -25,9 +25,9 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.junit.jupiter:junit-jupiter-api:5.0.0-M4"
-    compile "straightway:dsl:0.1+"
-    compile "straightway:numbers:0.1+"
-    compile "straightway:error:0.1+"
+    compile findProject(":dsl") ?: "straightway:dsl:0.1+"
+    compile findProject(":numbers") ?: "straightway:numbers:0.1+"
+    compile findProject(":error") ?: "straightway:error:0.1+"
 }
 
 uploadArchives {
