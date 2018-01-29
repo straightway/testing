@@ -15,27 +15,15 @@
  */
 package straightway.testing
 
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 
-/**
- * Base class for unit tests test objects of type T.
- */
-open class TestBase<T> {
+class AssertTestAssertDoesNotThrow {
 
-    //<editor-fold desc="Setup/tear down">
-    @AfterEach
-    open fun tearDown() {
-        nullableSut = null
-    }
-    //</editor-fold>
+    @Test
+    fun passes_ifNoExceptionIsThrown() =
+        assertDoesNotThrow {}
 
-    protected var sut: T
-        get() = nullableSut!!
-        set(value) {
-            nullableSut = value
-        }
-
-    //<editor-fold desc="Private">
-    private var nullableSut: T? = null
-    //</editor-fold>
+    @Test
+    fun fails_ifExceptionIsThrown() =
+        assertFails { assertDoesNotThrow { throw Exception() } }
 }

@@ -13,23 +13,30 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package straightway.testing
+package straightway.testing.flow
 
 import org.junit.jupiter.api.Test
-import straightway.testing.flow.equal
-import straightway.testing.flow.expect
-import straightway.testing.flow.is_
-import straightway.testing.flow.to_
+import straightway.dsl.minus
+import straightway.testing.assertDoesNotThrow
+import straightway.testing.assertFails
 
-class CallCounterTest {
-
-    @Test
-    fun callCountIsInitiallyZero() = expect(CallCounter().calls is_ equal to_ 0)
+class RelationTestIsSameAs {
 
     @Test
-    fun callCountIsOneAfterOneCall() {
-        val sut = CallCounter()
-        sut.action()
-        expect(sut.calls is_ equal to_ 1)
+    fun passes() = assertDoesNotThrow { expect(a is_ Same as_ a) }
+
+    @Test
+    fun negation_passes() = assertDoesNotThrow { expect(a is_ Not - Same as_ b) }
+
+    @Test
+    fun isSameAs_fails() = assertFails { expect(a is_ Same as_ b) }
+
+    @Test
+    fun isNotSameAs_fails() = assertFails { expect(a is_ Not - Same as_ a) }
+
+    private data class EqualButNotSame(val value: Int)
+    private companion object {
+        val a = EqualButNotSame(1)
+        val b = EqualButNotSame(1)
     }
 }

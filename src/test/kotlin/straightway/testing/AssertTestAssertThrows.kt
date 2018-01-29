@@ -15,27 +15,21 @@
  */
 package straightway.testing
 
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
+import java.lang.NullPointerException
+import java.security.InvalidKeyException
 
-/**
- * Base class for unit tests test objects of type T.
- */
-open class TestBase<T> {
+internal class AssertTestAssertThrows {
 
-    //<editor-fold desc="Setup/tear down">
-    @AfterEach
-    open fun tearDown() {
-        nullableSut = null
-    }
-    //</editor-fold>
+    @Test
+    fun passes_withCorrectException() =
+        assertDoesNotThrow { assertThrows<NullPointerException> { throw NullPointerException() } }
 
-    protected var sut: T
-        get() = nullableSut!!
-        set(value) {
-            nullableSut = value
-        }
+    @Test
+    fun fails_withExceptionOfWrongType() =
+        assertFails { assertThrows<NullPointerException> { throw InvalidKeyException() } }
 
-    //<editor-fold desc="Private">
-    private var nullableSut: T? = null
-    //</editor-fold>
+    @Test
+    fun fails_withoutException() =
+        assertFails { assertThrows<Exception> {} }
 }

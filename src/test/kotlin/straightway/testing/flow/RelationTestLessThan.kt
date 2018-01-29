@@ -13,29 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package straightway.testing
+package straightway.testing.flow
 
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
+import straightway.dsl.minus
+import straightway.testing.assertDoesNotThrow
+import straightway.testing.assertFails
 
-/**
- * Base class for unit tests test objects of type T.
- */
-open class TestBase<T> {
+class RelationTestLessThan {
 
-    //<editor-fold desc="Setup/tear down">
-    @AfterEach
-    open fun tearDown() {
-        nullableSut = null
-    }
-    //</editor-fold>
+    @Test fun succeeds_int() = assertDoesNotThrow { expect(1 is_ Less than 2) }
 
-    protected var sut: T
-        get() = nullableSut!!
-        set(value) {
-            nullableSut = value
-        }
+    @Test fun fails() = assertFails { expect(1 is_ Less than 1) }
 
-    //<editor-fold desc="Private">
-    private var nullableSut: T? = null
-    //</editor-fold>
+    @Test fun negated_succeeds() = assertDoesNotThrow { expect(1 is_ Not - Less than 1) }
+
+    @Test fun negated_fails() = assertFails { expect(1 is_ Not - Less than 2) }
 }

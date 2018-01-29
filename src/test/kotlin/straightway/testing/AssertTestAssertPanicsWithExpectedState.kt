@@ -15,27 +15,25 @@
  */
 package straightway.testing
 
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
+import straightway.error.Panic
 
-/**
- * Base class for unit tests test objects of type T.
- */
-open class TestBase<T> {
+class AssertTestAssertPanicsWithExpectedState {
 
-    //<editor-fold desc="Setup/tear down">
-    @AfterEach
-    open fun tearDown() {
-        nullableSut = null
+    @Test
+    fun passes_ifPanicOccurs_withCorrectState() =
+        assertDoesNotThrow { assertPanics(expectedState) { throw Panic(expectedState) } }
+
+    @Test
+    fun fails_ifNoPanicOccurs() =
+        assertFails { assertPanics(expectedState) {} }
+
+    @Test
+    fun fails_ifPanicOccurs_withIncorrectState() =
+        assertFails { assertPanics(expectedState) { throw Panic(unexpectedState) } }
+
+    private companion object {
+        val expectedState = Any()
+        val unexpectedState = Any()
     }
-    //</editor-fold>
-
-    protected var sut: T
-        get() = nullableSut!!
-        set(value) {
-            nullableSut = value
-        }
-
-    //<editor-fold desc="Private">
-    private var nullableSut: T? = null
-    //</editor-fold>
 }

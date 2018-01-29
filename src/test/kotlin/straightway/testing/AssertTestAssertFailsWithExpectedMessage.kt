@@ -15,21 +15,25 @@
  */
 package straightway.testing
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import straightway.testing.flow.equal
-import straightway.testing.flow.expect
-import straightway.testing.flow.is_
-import straightway.testing.flow.to_
+import org.opentest4j.AssertionFailedError
 
-class CallCounterTest {
+class AssertTestAssertFailsWithExpectedMessage {
 
     @Test
-    fun callCountIsInitiallyZero() = expect(CallCounter().calls is_ equal to_ 0)
+    fun passes_ifActionFailsWithCorrectMessage() =
+        assertDoesNotThrow { assertFails("Expected message") { Assertions.fail("Expected message") } }
 
     @Test
-    fun callCountIsOneAfterOneCall() {
-        val sut = CallCounter()
-        sut.action()
-        expect(sut.calls is_ equal to_ 1)
-    }
+    fun fails_withExpectedMessage_ifActionDoesNotFail() =
+        assertThrows<AssertionFailedError> {
+            assertFails("Expected message") {}
+        }
+
+    @Test
+    fun fails_ifActionFailsWithWrongMessage() =
+        assertThrows<AssertionFailedError> {
+            assertFails("Expected message") { Assertions.fail("Wrong message") }
+        }
 }

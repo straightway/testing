@@ -15,27 +15,17 @@
  */
 package straightway.testing
 
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.fail
+import org.junit.jupiter.api.Test
+import org.opentest4j.AssertionFailedError
 
-/**
- * Base class for unit tests test objects of type T.
- */
-open class TestBase<T> {
+internal class AssertTestAssertFails {
 
-    //<editor-fold desc="Setup/tear down">
-    @AfterEach
-    open fun tearDown() {
-        nullableSut = null
-    }
-    //</editor-fold>
+    @Test
+    fun passes_ifActionFails() =
+        assertDoesNotThrow { assertFails { fail("Failed by intention") } }
 
-    protected var sut: T
-        get() = nullableSut!!
-        set(value) {
-            nullableSut = value
-        }
-
-    //<editor-fold desc="Private">
-    private var nullableSut: T? = null
-    //</editor-fold>
+    @Test
+    fun fails_ifActionDoesNotFail() =
+        assertThrows<AssertionFailedError> { assertFails {} }
 }
