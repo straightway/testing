@@ -16,13 +16,13 @@
 package straightway.testing.flow
 
 import org.opentest4j.AssertionFailedError
-import straightway.dsl.BoundExpr
-import straightway.dsl.Expr
-import straightway.dsl.FunExpr
-import straightway.dsl.StateExpr
-import straightway.dsl.Value
-import straightway.dsl.inState
-import straightway.dsl.untyped
+import straightway.expr.BoundExpr
+import straightway.expr.Expr
+import straightway.expr.FunExpr
+import straightway.expr.StateExpr
+import straightway.expr.Value
+import straightway.expr.inState
+import straightway.expr.untyped
 import straightway.numbers.compareTo
 import straightway.numbers.minus
 import java.time.Duration

@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.Test
 import org.opentest4j.AssertionFailedError
 
-internal class AssertTestAssertFails {
+class AssertTestAssertFails {
 
     @Test
     fun passes_ifActionFails() =

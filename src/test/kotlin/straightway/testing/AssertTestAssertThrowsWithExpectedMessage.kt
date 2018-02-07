@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test
 import java.lang.NullPointerException
 import java.security.InvalidKeyException
 
-internal class AssertTestAssertThrowsWithExpectedMessage {
+class AssertTestAssertThrowsWithExpectedMessage {
 
     @Test
     fun `AssertThrows passes with expected exception, containing type and message`() =

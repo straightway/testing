@@ -16,8 +16,8 @@
 package straightway.testing.flow
 
 import org.junit.jupiter.api.Test
-import straightway.dsl.FunExpr
-import straightway.dsl.Value
+import straightway.expr.FunExpr
+import straightway.expr.Value
 
 class BooleanOperatorsTestAnd {
 

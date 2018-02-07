@@ -16,7 +16,7 @@
 package straightway.testing.flow
 
 import org.junit.jupiter.api.Test
-import straightway.dsl.minus
+import straightway.expr.minus
 import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
 

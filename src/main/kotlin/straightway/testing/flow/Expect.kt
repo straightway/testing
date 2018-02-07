@@ -18,7 +18,7 @@ package straightway.testing.flow
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 import org.opentest4j.AssertionFailedError
-import straightway.dsl.Expr
+import straightway.expr.Expr
 import straightway.error.Panic
 
 /**
@@ -32,9 +32,9 @@ fun expect(condition: Expr) {
     } catch (e: AssertionFailedError) {
         throw e
     } catch (e: Panic) {
-        fail("Expectation <${ExpressionVisualizer(condition).string}> failed (${e.state})")
+        fail<Unit>("Expectation <${ExpressionVisualizer(condition).string}> failed (${e.state})")
     } catch (e: Throwable) {
-        fail("Expectation <${ExpressionVisualizer(condition).string}> failed ($e)")
+        fail<Unit>("Expectation <${ExpressionVisualizer(condition).string}> failed ($e)")
     }
 }
 

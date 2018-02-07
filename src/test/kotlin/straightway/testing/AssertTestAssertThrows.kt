@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test
 import java.lang.NullPointerException
 import java.security.InvalidKeyException
 
-internal class AssertTestAssertThrows {
+class AssertTestAssertThrows {
 
     @Test
     fun passes_withCorrectException() =

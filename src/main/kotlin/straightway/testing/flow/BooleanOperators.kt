@@ -15,11 +15,11 @@
  */
 package straightway.testing.flow
 
-import straightway.dsl.CombinableExpr
-import straightway.dsl.DistributedExpr
-import straightway.dsl.Expr
-import straightway.dsl.FunExpr
-import straightway.dsl.untyped
+import straightway.expr.CombinableExpr
+import straightway.expr.DistributedExpr
+import straightway.expr.Expr
+import straightway.expr.FunExpr
+import straightway.expr.untyped
 
 /**
  * Operator which logically negates its argument.
