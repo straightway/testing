@@ -21,9 +21,9 @@ class AssertTestAssertDoesNotThrow {
 
     @Test
     fun passes_ifNoExceptionIsThrown() =
-        assertDoesNotThrow {}
+            assertDoesNotThrow {}
 
     @Test
     fun fails_ifExceptionIsThrown() =
-        assertFails { assertDoesNotThrow { throw Exception() } }
+            assertFails { assertDoesNotThrow { throw Exception() } }
 }

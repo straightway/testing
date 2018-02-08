@@ -22,15 +22,15 @@ class AssertTestAssertPanicsWithExpectedState {
 
     @Test
     fun passes_ifPanicOccurs_withCorrectState() =
-        assertDoesNotThrow { assertPanics(expectedState) { throw Panic(expectedState) } }
+            assertDoesNotThrow { assertPanics(expectedState) { throw Panic(expectedState) } }
 
     @Test
     fun fails_ifNoPanicOccurs() =
-        assertFails { assertPanics(expectedState) {} }
+            assertFails { assertPanics(expectedState) {} }
 
     @Test
     fun fails_ifPanicOccurs_withIncorrectState() =
-        assertFails { assertPanics(expectedState) { throw Panic(unexpectedState) } }
+            assertFails { assertPanics(expectedState) { throw Panic(unexpectedState) } }
 
     private companion object {
         val expectedState = Any()

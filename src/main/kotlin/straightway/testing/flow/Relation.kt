@@ -90,22 +90,22 @@ infix fun Any?.is_(arg: Null) = (this === null) is_ True
 @Suppress("UNUSED_PARAMETER")
 infix fun Any?.is_(arg: NotNull) = (this === null) is_ False
 
-infix fun <T: Iterable<*>, TRel: WithHas> T.has(op: StateExpr<TRel>) = BoundExpr(op, Value(this)).inState<TRel>()
-infix fun <TRel: WithHas> Array<*>.has(op: StateExpr<TRel>) = this.asList() has op
-infix fun <TRel: WithHas> CharSequence.has(op: StateExpr<TRel>) = this.toList() has op
+infix fun <T : Iterable<*>, TRel : WithHas> T.has(op: StateExpr<TRel>) = BoundExpr(op, Value(this)).inState<TRel>()
+infix fun <TRel : WithHas> Array<*>.has(op: StateExpr<TRel>) = this.asList() has op
+infix fun <TRel : WithHas> CharSequence.has(op: StateExpr<TRel>) = this.toList() has op
 
 infix fun StateExpr<WithTo>.to_(other: Any) = BoundExpr(this, Value(other))
 infix fun StateExpr<WithAs>.as_(other: Any) = BoundExpr(this, Value(other))
 infix fun StateExpr<WithThan>.than(other: Any) = BoundExpr(this, Value(other))
-infix fun <T: WithOf> StateExpr<T>.of(other: Any) = BoundExpr(this, Value(other))
+infix fun <T : WithOf> StateExpr<T>.of(other: Any) = BoundExpr(this, Value(other))
 
 @Suppress("UNCHECKED_CAST")
 private fun Any.untypedCompareTo(other: Any): Int =
-    (this as Comparable<Any>).compareTo(other)
+        (this as Comparable<Any>).compareTo(other)
 private fun Any.asIterable() =
-    when (this) {
-        is Iterable<*> -> this
-        is Array<*> -> this.asList()
-        is CharSequence -> this.toList()
-        else -> throw AssertionFailedError("Cannot convert $this to_ iterable")
-    }
+        when (this) {
+            is Iterable<*> -> this
+            is Array<*> -> this.asList()
+            is CharSequence -> this.toList()
+            else -> throw AssertionFailedError("Cannot convert $this to_ iterable")
+        }

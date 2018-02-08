@@ -30,8 +30,8 @@ class ExpressionVisualizer(expression: Expr) {
         stack.single().toString()
     }
 
-    private fun reduceStack() : Boolean =
-        stack.indices.any(this::reduceStackAt)
+    private fun reduceStack(): Boolean =
+            stack.indices.any(this::reduceStackAt)
 
     private fun reduceStackAt(index: Int): Boolean {
         val potentialArgs = getPotentialArgsForStackIndex(index)
@@ -41,14 +41,14 @@ class ExpressionVisualizer(expression: Expr) {
     }
 
     private fun getPotentialArgsForStackIndex(index: Int) =
-        stack.drop(index + 1).take(stack[index].arity)
+            stack.drop(index + 1).take(stack[index].arity)
 
     private fun reduceStackAt(index: Int, reducedExpr: Expr) {
         val exprArityAtIndex = stack[index].arity
         stack = stack.take(index) + reducedExpr + stack.drop(index + exprArityAtIndex + 1)
     }
 
-    private var stack : List<Expr>
+    private var stack: List<Expr>
 
     init {
         val stackExprVisitor = StackExprVisitor()
@@ -58,26 +58,26 @@ class ExpressionVisualizer(expression: Expr) {
 }
 
 private fun getReducedExpression(expr: Expr, potentialArgs: List<Expr>) =
-    when {
-        expr.isPlainValue() -> null
-        potentialArgs.isChainedOperation(expr) -> BoundExpr(expr, potentialArgs.single())
-        potentialArgs.all(Expr::isPlainValue) -> Value(getStringRepresentation(expr, potentialArgs))
-        else -> null
-    }
+        when {
+            expr.isPlainValue() -> null
+            potentialArgs.isChainedOperation(expr) -> BoundExpr(expr, potentialArgs.single())
+            potentialArgs.all(Expr::isPlainValue) -> Value(getStringRepresentation(expr, potentialArgs))
+            else -> null
+        }
 
 private fun Expr.isPlainValue() =
-    arity == 0
+        arity == 0
 
 private fun List<Expr>.isChainedOperation(expr: Expr) =
-    expr.arity == 1 && 0 < single().arity
+        expr.arity == 1 && 0 < single().arity
 
 private fun getStringRepresentation(expr: Expr, args: List<Expr>) =
-    getFilledArgsForExpression(args, expr).let {
-        when (expr.arity) {
-            2 -> "${it[0]} $expr ${it[1]}"
-            else -> "$expr(${it.joinToString()})"
+        getFilledArgsForExpression(args, expr).let {
+            when (expr.arity) {
+                2 -> "${it[0]} $expr ${it[1]}"
+                else -> "$expr(${it.joinToString()})"
+            }
         }
-    }
 
 private fun getFilledArgsForExpression(args: List<Expr>, expr: Expr) =
-    args + List<Expr>(expr.arity - args.size) { _ -> Value("?") }
+        args + List<Expr>(expr.arity - args.size) { _ -> Value("?") }

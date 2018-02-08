@@ -23,17 +23,17 @@ class AssertTestAssertFailsWithExpectedMessage {
 
     @Test
     fun passes_ifActionFailsWithCorrectMessage() =
-        assertDoesNotThrow { assertFails("Expected message") { Assertions.fail("Expected message") } }
+            assertDoesNotThrow { assertFails("Expected message") { Assertions.fail("Expected message") } }
 
     @Test
     fun fails_withExpectedMessage_ifActionDoesNotFail() =
-        assertThrows<AssertionFailedError> {
-            assertFails("Expected message") {}
-        }
+            assertThrows<AssertionFailedError> {
+                assertFails("Expected message") {}
+            }
 
     @Test
     fun fails_ifActionFailsWithWrongMessage() =
-        assertThrows<AssertionFailedError> {
-            assertFails("Expected message") { Assertions.fail("Wrong message") }
-        }
+            assertThrows<AssertionFailedError> {
+                assertFails("Expected message") { Assertions.fail("Wrong message") }
+            }
 }

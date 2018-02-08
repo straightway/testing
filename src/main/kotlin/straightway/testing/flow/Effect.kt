@@ -31,11 +31,15 @@ interface Effect : Expr
 
 object Throw : StateExpr<Effect>, FunExpr("thrown by", untyped {
     exception: KClass<*>, action: () -> Unit ->
-    try { action(); false } catch(e: Throwable) { exception.isInstance(e) } })
+    try {
+        action(); false
+    } catch (e: Throwable) {
+        exception.isInstance(e)
+    }
+})
 
 val exception = Throwable::class
 
 operator fun StateExpr<Effect>.minus(type: KClass<*>) = BoundExpr(this, Value(type)).inState<Effect>()
 
 infix fun <T : Effect> (() -> Any).does(op: StateExpr<T>) = BoundExpr(op, Value(this)).inState<T>()
-

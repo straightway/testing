@@ -16,8 +16,8 @@
 package straightway.testing.flow
 
 import org.junit.jupiter.api.Test
-import straightway.expr.minus
 import straightway.error.Panic
+import straightway.expr.minus
 import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
 
@@ -37,11 +37,9 @@ class EffectTestThrow {
     @Test fun negation_fails() =
             assertFails { expect(::panic does Not - Throw - exception) }
     @Test fun fails_withMeaningfulMessage() =
-            assertFails("Expectation <class kotlin.Throwable thrown by fun throwNothing(): kotlin.Unit> failed")
-            { expect(::throwNothing does Throw - exception) }
+            assertFails("Expectation <class kotlin.Throwable thrown by fun throwNothing(): kotlin.Unit> failed") { expect(::throwNothing does Throw - exception) }
     @Test fun negated_fails_withMeaningfulMessage() =
-            assertFails("Expectation <class kotlin.Throwable Not-thrown by fun panic(): kotlin.Unit> failed")
-            { expect(::panic does Not - Throw - exception) }
+            assertFails("Expectation <class kotlin.Throwable Not-thrown by fun panic(): kotlin.Unit> failed") { expect(::panic does Not - Throw - exception) }
 }
 
 private fun throwNothing() {}

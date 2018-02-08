@@ -16,13 +16,17 @@
 package straightway.testing
 
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.fail
 import org.opentest4j.AssertionFailedError
 import straightway.error.Panic
 import java.io.PrintWriter
 import java.io.StringWriter
 
-fun assertPanics(action: () -> Unit) { assertThrows<Panic>(action) }
+fun assertPanics(action: () -> Unit) {
+    assertThrows<Panic>(action)
+}
 
 fun assertPanics(expectedState: Any, action: () -> Unit) {
     try {

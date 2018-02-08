@@ -18,8 +18,8 @@ package straightway.testing.flow
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 import org.opentest4j.AssertionFailedError
-import straightway.expr.Expr
 import straightway.error.Panic
+import straightway.expr.Expr
 
 /**
  * Expect the condition evaluated by the given expression to be true.
@@ -47,4 +47,4 @@ fun expect(condition: Boolean) = assertTrue(condition)
  * Expect the given condition to be true.
  */
 fun expect(condition: Boolean, lazyExplanation: () -> String) =
-    assertTrue(condition, lazyExplanation)
+        assertTrue(condition, lazyExplanation)

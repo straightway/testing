@@ -31,11 +31,11 @@ object Not : CombinableExpr, FunExpr("Not", untyped<Boolean, Boolean> { !it })
  * the logical conjunction of their boolean results.
  */
 infix fun Expr.and(other: Expr): Expr =
-    DistributedExpr("and", this, other) { left(*it) as Boolean && right(*it) as Boolean }
+        DistributedExpr("and", this, other) { left(*it) as Boolean && right(*it) as Boolean }
 
 /**
  * Operator which distributes its arguments to_ the left and right expressions and yields
  * the logical disjunction of their boolean results.
  */
 infix fun Expr.or(other: Expr): Expr =
-    DistributedExpr("or", this, other) { left(*it) as Boolean || right(*it) as Boolean }
+        DistributedExpr("or", this, other) { left(*it) as Boolean || right(*it) as Boolean }

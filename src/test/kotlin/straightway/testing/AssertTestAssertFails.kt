@@ -23,9 +23,9 @@ class AssertTestAssertFails {
 
     @Test
     fun passes_ifActionFails() =
-        assertDoesNotThrow { assertFails { fail("Failed by intention") } }
+            assertDoesNotThrow { assertFails { fail("Failed by intention") } }
 
     @Test
     fun fails_ifActionDoesNotFail() =
-        assertThrows<AssertionFailedError> { assertFails {} }
+            assertThrows<AssertionFailedError> { assertFails {} }
 }
