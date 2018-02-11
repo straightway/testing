@@ -13,18 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package straightway.testing
 
-import org.junit.jupiter.api.Test
+package straightway.testing.flow
 
-class AssertTestAssertDoesNotThrow {
+import straightway.expr.BoundExpr
+import straightway.expr.StateExpr
+import straightway.expr.Value
+import straightway.expr.inState
 
-    @Test
-    fun passes_ifNoExceptionIsThrown() =
-            assertDoesNotThrow {}
-
-    @Test
-    @Suppress("TooGenericExceptionThrown")
-    fun fails_ifExceptionIsThrown() =
-            assertFails { assertDoesNotThrow { throw Exception() } }
-}
+infix fun <T : Iterable<*>, TRel : WithHas> T.has(op: StateExpr<TRel>) = BoundExpr(op, Value(this)).inState<TRel>()
+infix fun <TRel : WithHas> Array<*>.has(op: StateExpr<TRel>) = this.asList() has op
+infix fun <TRel : WithHas> CharSequence.has(op: StateExpr<TRel>) = this.toList() has op

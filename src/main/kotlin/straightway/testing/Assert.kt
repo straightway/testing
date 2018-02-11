@@ -41,6 +41,7 @@ inline fun <reified TException : Throwable> assertThrows(noinline action: () -> 
     Assertions.assertThrows<TException>(TException::class.java, action)
 }
 
+@Suppress("TooGenericExceptionCaught")
 inline fun <reified TException : Throwable> assertThrows(expectedMessage: String, noinline action: () -> Unit) {
     try {
         action()
@@ -59,6 +60,7 @@ fun assertFails(expectedMessage: String, action: () -> Unit) {
     assertThrows<AssertionFailedError>(expectedMessage, action)
 }
 
+@Suppress("TooGenericExceptionCaught")
 fun assertDoesNotThrow(action: () -> Unit) {
     try {
         action()

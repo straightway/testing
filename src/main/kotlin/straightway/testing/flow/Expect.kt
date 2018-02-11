@@ -24,6 +24,7 @@ import straightway.expr.Expr
 /**
  * Expect the condition evaluated by the given expression to be true.
  */
+@Suppress("TooGenericExceptionCaught")
 fun expect(condition: Expr) {
     try {
         assertTrue(condition() as Boolean) {

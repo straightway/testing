@@ -19,7 +19,14 @@ import straightway.expr.CombinableExpr
 import straightway.expr.DistributedExpr
 import straightway.expr.Expr
 import straightway.expr.FunExpr
+import straightway.expr.StateExpr
 import straightway.expr.untyped
+
+object True
+    : Relation, StateExpr<Unary>, FunExpr("true", { a -> a as Boolean })
+
+object False
+    : Relation, StateExpr<Unary>, FunExpr("false", { a -> !(a as Boolean) })
 
 /**
  * Operator which logically negates its argument.

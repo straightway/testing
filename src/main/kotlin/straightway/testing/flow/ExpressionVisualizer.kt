@@ -26,7 +26,7 @@ import straightway.expr.Value
 class ExpressionVisualizer(expression: Expr) {
 
     val string: String by lazy {
-        while (reduceStack()) {}
+        while (true) if (!reduceStack()) break
         stack.single().toString()
     }
 

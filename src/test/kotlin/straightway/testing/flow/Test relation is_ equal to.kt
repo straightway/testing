@@ -22,7 +22,7 @@ import straightway.testing.assertFails
 import java.time.Duration
 import java.time.LocalDateTime
 
-class RelationTestIsEqualTo {
+class `Test relation is_ equal to` {
 
     @Test
     fun passes() = assertDoesNotThrow { expect(1 is_ equal to_ 1) }
@@ -47,21 +47,25 @@ class RelationTestIsEqualTo {
 
     @Test
     fun duration_range_smallerFirst_passes() = assertDoesNotThrow {
-        expect(LocalDateTime.of(0, 1, 1, 0, 0, 0) is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 2, 0, 0, 0))
+        expect(LocalDateTime.of(0, 1, 1, 0, 0, 0)
+                is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 2, 0, 0, 0))
     }
 
     @Test
     fun duration_range_biggerFirst_passes() = assertDoesNotThrow {
-        expect(LocalDateTime.of(0, 1, 2, 0, 0, 0) is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 1, 0, 0, 0))
+        expect(LocalDateTime.of(0, 1, 2, 0, 0, 0)
+                is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 1, 0, 0, 0))
     }
 
     @Test
     fun duration_range_fails() = assertFails {
-        expect(LocalDateTime.of(0, 1, 1, 0, 0, 0) is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
+        expect(LocalDateTime.of(0, 1, 1, 0, 0, 0)
+                is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
     }
 
     @Test
     fun duration_range_negation_passes() = assertDoesNotThrow {
-        expect(LocalDateTime.of(0, 1, 1, 0, 0, 0) is_ Not - equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
+        expect(LocalDateTime.of(0, 1, 1, 0, 0, 0)
+                is_ Not - equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
     }
 }

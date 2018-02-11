@@ -13,18 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package straightway.testing
 
-import org.junit.jupiter.api.Test
+package straightway.testing.flow
 
-class AssertTestAssertDoesNotThrow {
+import straightway.expr.BoundExpr
+import straightway.expr.StateExpr
+import straightway.expr.Value
 
-    @Test
-    fun passes_ifNoExceptionIsThrown() =
-            assertDoesNotThrow {}
+@Suppress("FunctionNaming")
+infix fun StateExpr<WithTo>.to_(other: Any) = BoundExpr(this, Value(other))
 
-    @Test
-    @Suppress("TooGenericExceptionThrown")
-    fun fails_ifExceptionIsThrown() =
-            assertFails { assertDoesNotThrow { throw Exception() } }
-}
+@Suppress("FunctionNaming")
+infix fun StateExpr<WithAs>.as_(other: Any) = BoundExpr(this, Value(other))
+
+infix fun StateExpr<WithThan>.than(other: Any) = BoundExpr(this, Value(other))
+
+infix fun <T : WithOf> StateExpr<T>.of(other: Any) = BoundExpr(this, Value(other))

@@ -15,14 +15,9 @@
  */
 package straightway.testing.flow
 
-import org.opentest4j.AssertionFailedError
-import straightway.expr.BoundExpr
 import straightway.expr.Expr
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
-import straightway.expr.Value
-import straightway.expr.inState
-import straightway.expr.untyped
 import straightway.numbers.compareTo
 import straightway.numbers.minus
 import java.time.Duration
@@ -62,50 +57,6 @@ object Greater
 object Less
     : Relation, StateExpr<WithThan>, FunExpr("Less", { a, b -> a.untypedCompareTo(b) < 0 })
 
-object Size
-    : Relation, StateExpr<WithHasAndOf>, FunExpr("Size", untyped { a: Any, s: Int ->
-        (a as Iterable<*>).count() == s })
-
-object True
-    : Relation, StateExpr<Unary>, FunExpr("true", { a -> a as Boolean })
-
-object False
-    : Relation, StateExpr<Unary>, FunExpr("false", { a -> !(a as Boolean) })
-
-object Empty
-    : Relation, StateExpr<Unary>, FunExpr("Empty", { a: Any -> !a.asIterable().any() })
-
-object Null
-object NotNull
-
-@Suppress("UNUSED_PARAMETER", "unused")
-operator fun Not.minus(arg: Null) = NotNull
-
-infix fun <T : Relation> Any.is_(op: StateExpr<T>) = BoundExpr(op, Value(this)).inState<T>()
-infix fun <T : Comparable<T>, TRel : Relation> T.is_(op: StateExpr<TRel>) = BoundExpr(op, Value(this)).inState<TRel>()
-
-@Suppress("UNUSED_PARAMETER")
-infix fun Any?.is_(arg: Null) = (this === null) is_ True
-
-@Suppress("UNUSED_PARAMETER")
-infix fun Any?.is_(arg: NotNull) = (this === null) is_ False
-
-infix fun <T : Iterable<*>, TRel : WithHas> T.has(op: StateExpr<TRel>) = BoundExpr(op, Value(this)).inState<TRel>()
-infix fun <TRel : WithHas> Array<*>.has(op: StateExpr<TRel>) = this.asList() has op
-infix fun <TRel : WithHas> CharSequence.has(op: StateExpr<TRel>) = this.toList() has op
-
-infix fun StateExpr<WithTo>.to_(other: Any) = BoundExpr(this, Value(other))
-infix fun StateExpr<WithAs>.as_(other: Any) = BoundExpr(this, Value(other))
-infix fun StateExpr<WithThan>.than(other: Any) = BoundExpr(this, Value(other))
-infix fun <T : WithOf> StateExpr<T>.of(other: Any) = BoundExpr(this, Value(other))
-
 @Suppress("UNCHECKED_CAST")
 private fun Any.untypedCompareTo(other: Any): Int =
         (this as Comparable<Any>).compareTo(other)
-private fun Any.asIterable() =
-        when (this) {
-            is Iterable<*> -> this
-            is Array<*> -> this.asList()
-            is CharSequence -> this.toList()
-            else -> throw AssertionFailedError("Cannot convert $this to_ iterable")
-        }

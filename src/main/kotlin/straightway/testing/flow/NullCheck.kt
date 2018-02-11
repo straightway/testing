@@ -13,18 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package straightway.testing
 
-import org.junit.jupiter.api.Test
+package straightway.testing.flow
 
-class AssertTestAssertDoesNotThrow {
+object Null
+object NotNull
 
-    @Test
-    fun passes_ifNoExceptionIsThrown() =
-            assertDoesNotThrow {}
-
-    @Test
-    @Suppress("TooGenericExceptionThrown")
-    fun fails_ifExceptionIsThrown() =
-            assertFails { assertDoesNotThrow { throw Exception() } }
-}
+@Suppress("UNUSED_PARAMETER", "unused")
+operator fun Not.minus(arg: Null) = NotNull

@@ -13,34 +13,28 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package straightway.testing.flow
 
-import straightway.expr.BoundExpr
-import straightway.expr.Expr
+import org.opentest4j.AssertionFailedError
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
-import straightway.expr.Value
-import straightway.expr.inState
 import straightway.expr.untyped
-import kotlin.reflect.KClass
 
-/**
- * An expression which tests the effect of a given lambda object.
- */
-interface Effect : Expr
+object Size :
+        Relation,
+        StateExpr<WithHasAndOf>,
+        FunExpr("Size", untyped { a: Any, s: Int -> (a as Iterable<*>).count() == s })
 
-@Suppress("TooGenericExceptionCaught")
-object Throw : StateExpr<Effect>, FunExpr("thrown by", untyped {
-    exception: KClass<*>, action: () -> Unit ->
-    try {
-        action(); false
-    } catch (e: Throwable) {
-        exception.isInstance(e)
-    }
-})
+object Empty :
+        Relation,
+        StateExpr<Unary>,
+        FunExpr("Empty", { a: Any -> !a.asIterable().any() })
 
-val exception = Throwable::class
-
-operator fun StateExpr<Effect>.minus(type: KClass<*>) = BoundExpr(this, Value(type)).inState<Effect>()
-
-infix fun <T : Effect> (() -> Any).does(op: StateExpr<T>) = BoundExpr(op, Value(this)).inState<T>()
+private fun Any.asIterable() =
+        when (this) {
+            is Iterable<*> -> this
+            is Array<*> -> this.asList()
+            is CharSequence -> this.toList()
+            else -> throw AssertionFailedError("Cannot convert $this to_ iterable")
+        }

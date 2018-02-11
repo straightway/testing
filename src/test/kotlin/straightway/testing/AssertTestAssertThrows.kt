@@ -22,6 +22,7 @@ import java.security.InvalidKeyException
 class AssertTestAssertThrows {
 
     @Test
+    @Suppress("TooGenericExceptionThrown")
     fun passes_withCorrectException() =
             assertDoesNotThrow { assertThrows<NullPointerException> { throw NullPointerException() } }
 

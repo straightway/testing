@@ -16,31 +16,18 @@
 package straightway.testing.flow
 
 import straightway.expr.BoundExpr
-import straightway.expr.Expr
-import straightway.expr.FunExpr
 import straightway.expr.StateExpr
 import straightway.expr.Value
 import straightway.expr.inState
-import straightway.expr.untyped
-import kotlin.reflect.KClass
 
-/**
- * An expression which tests the effect of a given lambda object.
- */
-interface Effect : Expr
+@Suppress("UNUSED_PARAMETER", "FunctionNaming")
+infix fun Any?.is_(arg: NotNull) = (this === null) is_ False
 
-@Suppress("TooGenericExceptionCaught")
-object Throw : StateExpr<Effect>, FunExpr("thrown by", untyped {
-    exception: KClass<*>, action: () -> Unit ->
-    try {
-        action(); false
-    } catch (e: Throwable) {
-        exception.isInstance(e)
-    }
-})
+@Suppress("FunctionNaming")
+infix fun <T : Relation> Any.is_(op: StateExpr<T>) = BoundExpr(op, Value(this)).inState<T>()
 
-val exception = Throwable::class
+@Suppress("FunctionNaming")
+infix fun <T : Comparable<T>, TRel : Relation> T.is_(op: StateExpr<TRel>) = BoundExpr(op, Value(this)).inState<TRel>()
 
-operator fun StateExpr<Effect>.minus(type: KClass<*>) = BoundExpr(this, Value(type)).inState<Effect>()
-
-infix fun <T : Effect> (() -> Any).does(op: StateExpr<T>) = BoundExpr(op, Value(this)).inState<T>()
+@Suppress("UNUSED_PARAMETER", "FunctionNaming")
+infix fun Any?.is_(arg: Null) = (this === null) is_ True
