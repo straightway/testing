@@ -28,14 +28,44 @@ import java.time.LocalDateTime
  */
 interface Relation : Expr
 
+/**
+ * A relation which requires 'to' as preposition.
+ */
 interface WithTo : Relation
+
+/**
+ * A relation which requires 'as' as preposition.
+ */
 interface WithAs : Relation
+
+/**
+ * A relation which requires 'than' as preposition.
+ */
 interface WithThan : Relation
+
+/**
+ * A relation which requires 'has' as prepositional verb.
+ */
 interface WithHas : Relation
+
+/**
+ * A relation which requires 'of' as preposition.
+ */
 interface WithOf : Relation
+
+/**
+ * A relation which requires both, 'has' as prepositional verb and 'of' as prepositon.
+ */
 interface WithHasAndOf : WithHas, WithOf
+
+/**
+ * A relation having only one parameter.
+ */
 interface Unary : Relation
 
+/**
+ * A relation determining if two values are equal.
+ */
 class Equal(predicate: (Any, Any) -> Boolean = { a, b -> a == b })
     : Relation, StateExpr<WithTo>, FunExpr("equal", predicate)
 
