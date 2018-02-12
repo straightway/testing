@@ -59,10 +59,14 @@ class ExpressionVisualizer(expression: Expr) {
 
 private fun getReducedExpression(expr: Expr, potentialArgs: List<Expr>) =
         when {
-            expr.isPlainValue() -> null
-            potentialArgs.isChainedOperation(expr) -> BoundExpr(expr, potentialArgs.single())
-            potentialArgs.all(Expr::isPlainValue) -> Value(getStringRepresentation(expr, potentialArgs))
-            else -> null
+            expr.isPlainValue() ->
+                null
+            potentialArgs.isChainedOperation(expr) ->
+                BoundExpr(expr, potentialArgs.single())
+            potentialArgs.all(Expr::isPlainValue) ->
+                Value(getStringRepresentation(expr, potentialArgs))
+            else ->
+                null
         }
 
 private fun Expr.isPlainValue() =

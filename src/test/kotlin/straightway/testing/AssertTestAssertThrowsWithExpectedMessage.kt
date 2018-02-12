@@ -24,22 +24,30 @@ class AssertTestAssertThrowsWithExpectedMessage {
     @Test
     fun `AssertThrows passes with expected exception, containing type and message`() =
             assertDoesNotThrow {
-                assertThrows<InvalidKeyException>("Expected") { throw InvalidKeyException("Expected") }
+                assertThrows<InvalidKeyException>("Expected") {
+                    throw InvalidKeyException("Expected")
+                }
             }
 
     @Test
     fun fails_withUnexpectedExceptionMessage() =
             assertFails {
-                assertThrows<InvalidKeyException>("Expected") { throw InvalidKeyException("Unexpected") }
+                assertThrows<InvalidKeyException>("Expected") {
+                    throw InvalidKeyException("Unexpected")
+                }
             }
 
     @Test
     fun fails_withExceptionOfWrongType() =
             assertFails {
-                assertThrows<NullPointerException>("Expected") { throw InvalidKeyException("Expected") }
+                assertThrows<NullPointerException>("Expected") {
+                    throw InvalidKeyException("Expected")
+                }
             }
 
     @Test
     fun fails_withoutException() =
-            assertFails { assertThrows<NullPointerException>("Expected") {} }
+            assertFails {
+                assertThrows<NullPointerException>("Expected") {}
+            }
 }

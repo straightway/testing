@@ -34,16 +34,20 @@ class `Test relation is_ equal to` {
     fun negation_passes() = assertDoesNotThrow { expect(1 is_ Not - equal to_ 2) }
 
     @Test
-    fun number_range_smallerFirst_passes() = assertDoesNotThrow { expect(0.9 is_ equalWithin(0.2) to_ 1.0) }
+    fun number_range_smallerFirst_passes() =
+            assertDoesNotThrow { expect(0.9 is_ equalWithin(0.2) to_ 1.0) }
 
     @Test
-    fun number_range_biggerFirst_passes() = assertDoesNotThrow { expect(1.1 is_ equalWithin(0.2) to_ 1.0) }
+    fun number_range_biggerFirst_passes() =
+            assertDoesNotThrow { expect(1.1 is_ equalWithin(0.2) to_ 1.0) }
 
     @Test
-    fun number_range_fails() = assertFails { expect(1.3 is_ equalWithin(0.2) to_ 1.0) }
+    fun number_range_fails() =
+            assertFails { expect(1.3 is_ equalWithin(0.2) to_ 1.0) }
 
     @Test
-    fun number_range_negation_passes() = assertDoesNotThrow { expect(1.3 is_ Not - equalWithin(0.2) to_ 1.0) }
+    fun number_range_negation_passes() =
+            assertDoesNotThrow { expect(1.3 is_ Not - equalWithin(0.2) to_ 1.0) }
 
     @Test
     fun duration_range_smallerFirst_passes() = assertDoesNotThrow {

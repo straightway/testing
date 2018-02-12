@@ -24,10 +24,12 @@ import straightway.expr.inState
 infix fun Any?.is_(arg: NotNull) = (this === null) is_ False
 
 @Suppress("FunctionNaming")
-infix fun <T : Relation> Any.is_(op: StateExpr<T>) = BoundExpr(op, Value(this)).inState<T>()
+infix fun <T : Relation> Any.is_(op: StateExpr<T>) =
+        BoundExpr(op, Value(this)).inState<T>()
 
 @Suppress("FunctionNaming")
-infix fun <T : Comparable<T>, TRel : Relation> T.is_(op: StateExpr<TRel>) = BoundExpr(op, Value(this)).inState<TRel>()
+infix fun <T : Comparable<T>, TRel : Relation> T.is_(op: StateExpr<TRel>) =
+        BoundExpr(op, Value(this)).inState<TRel>()
 
 @Suppress("UNUSED_PARAMETER", "FunctionNaming")
 infix fun Any?.is_(arg: Null) = (this === null) is_ True

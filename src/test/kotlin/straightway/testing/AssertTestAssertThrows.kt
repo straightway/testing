@@ -24,13 +24,19 @@ class AssertTestAssertThrows {
     @Test
     @Suppress("TooGenericExceptionThrown")
     fun passes_withCorrectException() =
-            assertDoesNotThrow { assertThrows<NullPointerException> { throw NullPointerException() } }
+            assertDoesNotThrow {
+                assertThrows<NullPointerException> { throw NullPointerException() }
+            }
 
     @Test
     fun fails_withExceptionOfWrongType() =
-            assertFails { assertThrows<NullPointerException> { throw InvalidKeyException() } }
+            assertFails {
+                assertThrows<NullPointerException> { throw InvalidKeyException() }
+            }
 
     @Test
     fun fails_withoutException() =
-            assertFails { assertThrows<Exception> {} }
+            assertFails {
+                assertThrows<Exception> {}
+            }
 }
