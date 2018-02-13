@@ -54,7 +54,7 @@ interface WithHas : Relation
 interface WithOf : Relation
 
 /**
- * A relation which requires both, 'has' as prepositional verb and 'of' as prepositon.
+ * A relation which requires both, 'has' as prepositional verb and 'of' as preposition.
  */
 interface WithHasAndOf : WithHas, WithOf
 
@@ -71,12 +71,15 @@ class Equal(predicate: (Any, Any) -> Boolean = { a, b -> a == b })
 
 val equal = Equal()
 fun equalWithin(range: Any) = Equal({ a, b ->
-    if (a is Number && b is Number && range is Number)
-        (if (a < b) b - a else a - b) < range
-    else if (a is LocalDateTime && b is LocalDateTime && range is Duration)
-        (if (a < b) Duration.between(a, b) else Duration.between(b, a)) < range
+    if (a is Number && b is Number && range is Number) abs(a, b) < range
+    else if (a is LocalDateTime && b is LocalDateTime && range is Duration) abs(a, b) < range
     else a == b
 })
+
+private fun abs(a: LocalDateTime, b: LocalDateTime) =
+        if (a < b) Duration.between(a, b) else Duration.between(b, a)
+
+private fun abs(a: Number, b: Number) = if (a < b) b - a else a - b
 
 object Same
     : Relation, StateExpr<WithAs>, FunExpr("Same", { a, b -> a === b })
