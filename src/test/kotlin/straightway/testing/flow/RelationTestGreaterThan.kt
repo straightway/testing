@@ -22,15 +22,20 @@ import straightway.testing.assertFails
 
 class RelationTestGreaterThan {
 
-    @Test fun succeeds_int() = assertDoesNotThrow { expect(2 is_ Greater than 1) }
+    @Test
+    fun succeeds_int() = assertDoesNotThrow { expect(2 is_ Greater than 1) }
 
-    @Test fun succeeds_mixed() = assertDoesNotThrow { expect(OtherComparable is_ Greater than 1) }
+    @Test
+    fun succeeds_mixed() = assertDoesNotThrow { expect(OtherComparable is_ Greater than 1) }
 
-    @Test fun fails() = assertFails { expect(1 is_ Greater than 1) }
+    @Test
+    fun fails() = assertFails { expect(1 is_ Greater than 1) }
 
-    @Test fun negated_succeeds() = assertDoesNotThrow { expect(1 is_ Not - Greater than 1) }
+    @Test
+    fun negated_succeeds() = assertDoesNotThrow { expect(1 is_ Not - Greater than 1) }
 
-    @Test fun negated_fails() = assertFails { expect(2 is_ Not - Greater than 1) }
+    @Test
+    fun negated_fails() = assertFails { expect(2 is_ Not - Greater than 1) }
 
     private object OtherComparable : Comparable<Int> {
         override fun compareTo(other: Int) = other

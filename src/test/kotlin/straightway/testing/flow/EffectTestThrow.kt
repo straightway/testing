@@ -22,30 +22,47 @@ import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
 
 class EffectTestThrow {
-    @Test fun passes() =
+    @Test
+    fun passes() =
             assertDoesNotThrow { expect(::panic does Throw - exception) }
-    @Test fun passes_withSpecificException() =
+
+    @Test
+    fun passes_withSpecificException() =
             assertDoesNotThrow { expect(::panic does Throw - Panic::class) }
-    @Test fun negation_passes() =
+
+    @Test
+    fun negation_passes() =
             assertDoesNotThrow { expect(::throwNothing does Not - Throw - exception) }
-    @Test fun negation_passes_withSpecificException() =
+
+    @Test
+    fun negation_passes_withSpecificException() =
             assertDoesNotThrow { expect(::panic does Not - Throw - NullPointerException::class) }
-    @Test fun fails() =
+
+    @Test
+    fun fails() =
             assertFails { expect(::throwNothing does Throw - exception) }
-    @Test fun fails_withSpecificException() =
+
+    @Test
+    fun fails_withSpecificException() =
             assertFails { expect(::panic does Throw - NullPointerException::class) }
-    @Test fun negation_fails() =
+
+    @Test
+    fun negation_fails() =
             assertFails { expect(::panic does Not - Throw - exception) }
-    @Test fun fails_withMeaningfulMessage() =
+
+    @Test
+    fun fails_withMeaningfulMessage() =
             assertFails(
                     "Expectation <class kotlin.Throwable thrown by fun throwNothing(): " +
-                    "kotlin.Unit> failed") {
+                            "kotlin.Unit> failed") {
                 expect(::throwNothing does Throw - exception)
             }
-    @Test fun negated_fails_withMeaningfulMessage() =
+
+    @Test
+    fun negated_fails_withMeaningfulMessage() =
             assertFails(
                     "Expectation <class kotlin.Throwable Not-thrown by fun panic(): " +
-                    "kotlin.Unit> failed") {
+                            "kotlin.Unit> failed") {
                 expect(::panic does Not - Throw - exception)
             }
 }

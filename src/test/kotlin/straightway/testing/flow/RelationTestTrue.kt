@@ -21,9 +21,11 @@ import straightway.testing.assertFails
 
 class RelationTestTrue {
 
-    @Test fun succeeds() =
+    @Test
+    fun succeeds() =
             assertDoesNotThrow { expect(true is_ True) }
 
-    @Test fun fails() =
+    @Test
+    fun fails() =
             assertFails { expect(false is_ True) }
 }

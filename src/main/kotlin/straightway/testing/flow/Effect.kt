@@ -30,14 +30,17 @@ import kotlin.reflect.KClass
 interface Effect : Expr
 
 @Suppress("TooGenericExceptionCaught")
-object Throw : StateExpr<Effect>, FunExpr("thrown by", untyped {
-    exception: KClass<*>, action: () -> Unit ->
-    try {
-        action(); false
-    } catch (e: Throwable) {
-        exception.isInstance(e)
-    }
-})
+object Throw :
+        StateExpr<Effect>,
+        FunExpr(
+                "thrown by",
+                untyped { exception: KClass<*>, action: () -> Unit ->
+                    try {
+                        action(); false
+                    } catch (e: Throwable) {
+                        exception.isInstance(e)
+                    }
+                })
 
 val exception = Throwable::class
 

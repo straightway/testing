@@ -23,7 +23,9 @@ import straightway.expr.inState
 
 infix fun <T : Iterable<*>, TRel : WithHas> T.has(op: StateExpr<TRel>) =
         BoundExpr(op, Value(this)).inState<TRel>()
+
 infix fun <TRel : WithHas> Array<*>.has(op: StateExpr<TRel>) =
         this.asList() has op
+
 infix fun <TRel : WithHas> CharSequence.has(op: StateExpr<TRel>) =
         this.toList() has op

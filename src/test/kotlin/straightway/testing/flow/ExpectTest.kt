@@ -23,40 +23,51 @@ import straightway.testing.assertFails
 
 class ExpectTest {
 
-    @Test fun booleanExpression_false_isFailure() =
+    @Test
+    fun booleanExpression_false_isFailure() =
             assertFails { expect(Value(false)) }
 
-    @Test fun nonBooleanExpression_isFailure() =
+    @Test
+    fun nonBooleanExpression_isFailure() =
             assertFails(
                     "Expectation <1> failed (java.lang.ClassCastException: " +
-                    "java.lang.Integer cannot be cast to java.lang.Boolean)") {
+                            "java.lang.Integer cannot be cast to java.lang.Boolean)") {
                 expect(Value(1))
             }
 
-    @Test fun booleanExpression_true_isSuccess() =
+    @Test
+    fun booleanExpression_true_isSuccess() =
             assertDoesNotThrow { expect(Value(true)) }
 
-    @Test fun failure_singleDyadicOp_withMeaningfulExplanation() =
+    @Test
+    fun failure_singleDyadicOp_withMeaningfulExplanation() =
             assertFails("Expectation <1 Greater 2> failed", { expect(1 is_ Greater than 2) })
 
-    @Test fun failure_monadicWithDyadicOp_withMeaningfulExplanation() =
+    @Test
+    fun failure_monadicWithDyadicOp_withMeaningfulExplanation() =
             assertFails("Expectation <1 Not-equal 1> failed") { expect(1 is_ Not - equal to_ 1) }
 
-    @Test fun failure_notFullyBoundExpression_withMeaningfulExplanation() =
-            assertFails("Expectation <1 Greater ?> failed " +
-                    "(Invalid number of parameters. Expected: 2, got: 1)") {
+    @Test
+    fun failure_notFullyBoundExpression_withMeaningfulExplanation() =
+            assertFails(
+                    "Expectation <1 Greater ?> failed " +
+                            "(Invalid number of parameters. Expected: 2, got: 1)") {
                 expect(1 is_ Greater)
             }
 
-    @Test fun success_directlyUsingBoolean() =
+    @Test
+    fun success_directlyUsingBoolean() =
             assertDoesNotThrow { expect(true) }
 
-    @Test fun failure_directlyUsingBoolean() =
+    @Test
+    fun failure_directlyUsingBoolean() =
             assertFails { expect(false) }
 
-    @Test fun success_directlyUsingBoolean_withExplanation() =
+    @Test
+    fun success_directlyUsingBoolean_withExplanation() =
             assertDoesNotThrow { expect(true) { "Explanation" } }
 
-    @Test fun failure_directlyUsingBoolean_withExplanation() =
+    @Test
+    fun failure_directlyUsingBoolean_withExplanation() =
             assertFails("Explanation") { expect(false) { "Explanation" } }
 }

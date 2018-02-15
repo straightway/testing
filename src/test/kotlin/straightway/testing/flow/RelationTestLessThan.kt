@@ -22,11 +22,15 @@ import straightway.testing.assertFails
 
 class RelationTestLessThan {
 
-    @Test fun succeeds_int() = assertDoesNotThrow { expect(1 is_ Less than 2) }
+    @Test
+    fun succeeds_int() = assertDoesNotThrow { expect(1 is_ Less than 2) }
 
-    @Test fun fails() = assertFails { expect(1 is_ Less than 1) }
+    @Test
+    fun fails() = assertFails { expect(1 is_ Less than 1) }
 
-    @Test fun negated_succeeds() = assertDoesNotThrow { expect(1 is_ Not - Less than 1) }
+    @Test
+    fun negated_succeeds() = assertDoesNotThrow { expect(1 is_ Not - Less than 1) }
 
-    @Test fun negated_fails() = assertFails { expect(1 is_ Not - Less than 2) }
+    @Test
+    fun negated_fails() = assertFails { expect(1 is_ Not - Less than 2) }
 }

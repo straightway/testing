@@ -66,15 +66,19 @@ interface Unary : Relation
 /**
  * A relation determining if two values are equal.
  */
-class Equal(predicate: (Any, Any) -> Boolean = { a, b -> a == b })
-    : Relation, StateExpr<WithTo>, FunExpr("equal", predicate)
+class Equal(
+        predicate: (Any, Any) -> Boolean = { a, b -> a == b }
+) : Relation, StateExpr<WithTo>, FunExpr("equal", predicate)
 
 val equal = Equal()
-fun equalWithin(range: Any) = Equal({ a, b ->
-    if (a is Number && b is Number && range is Number) abs(a, b) < range
-    else if (a is LocalDateTime && b is LocalDateTime && range is Duration) abs(a, b) < range
-    else a == b
-})
+fun equalWithin(range: Any) =
+        Equal({ a, b ->
+                  if (a is Number && b is Number && range is Number)
+                      abs(a, b) < range
+                  else if (a is LocalDateTime && b is LocalDateTime && range is Duration)
+                      abs(a, b) < range
+                  else a == b
+              })
 
 private fun abs(a: LocalDateTime, b: LocalDateTime) =
         if (a < b) Duration.between(a, b) else Duration.between(b, a)

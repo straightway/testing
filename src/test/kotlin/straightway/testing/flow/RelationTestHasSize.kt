@@ -21,39 +21,51 @@ import straightway.testing.assertFails
 
 class RelationTestHasSize {
 
-    @Test fun success_forList() =
+    @Test
+    fun success_forList() =
             assertDoesNotThrow { expect(listOf(1, 2, 3) has Size of 3) }
 
-    @Test fun failure_forList() =
+    @Test
+    fun failure_forList() =
             assertFails { expect(listOf(1, 2, 3) has Size of 1) }
 
-    @Test fun negatedSuccess_forList() =
+    @Test
+    fun negatedSuccess_forList() =
             assertDoesNotThrow { expect(listOf(1, 2, 3) has Size of 3) }
 
-    @Test fun negatedFailure_forList() =
+    @Test
+    fun negatedFailure_forList() =
             assertFails { expect(listOf(1, 2, 3) has Size of 1) }
 
-    @Test fun success_forArray() =
+    @Test
+    fun success_forArray() =
             assertDoesNotThrow { expect(arrayOf(1, 2, 3) has Size of 3) }
 
-    @Test fun failure_forArray() =
+    @Test
+    fun failure_forArray() =
             assertFails { expect(arrayOf(1, 2, 3) has Size of 1) }
 
-    @Test fun negatedSuccess_forArray() =
+    @Test
+    fun negatedSuccess_forArray() =
             assertDoesNotThrow { expect(arrayOf(1, 2, 3) has Size of 3) }
 
-    @Test fun negatedFailure_forArray() =
+    @Test
+    fun negatedFailure_forArray() =
             assertFails { expect(arrayOf(1, 2, 3) has Size of 1) }
 
-    @Test fun success_forString() =
+    @Test
+    fun success_forString() =
             assertDoesNotThrow { expect("123" has Size of 3) }
 
-    @Test fun failure_forString() =
+    @Test
+    fun failure_forString() =
             assertFails { expect("123" has Size of 1) }
 
-    @Test fun negatedSuccess_forString() =
+    @Test
+    fun negatedSuccess_forString() =
             assertDoesNotThrow { expect("123" has Size of 3) }
 
-    @Test fun negatedFailure_forString() =
+    @Test
+    fun negatedFailure_forString() =
             assertFails { expect("123" has Size of 1) }
 }

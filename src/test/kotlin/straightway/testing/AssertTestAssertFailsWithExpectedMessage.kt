@@ -23,8 +23,10 @@ class AssertTestAssertFailsWithExpectedMessage {
 
     @Test
     fun passes_ifActionFailsWithCorrectMessage() =
-            assertDoesNotThrow { assertFails("Expected message") {
-                Assertions.fail("Expected message") }
+            assertDoesNotThrow {
+                assertFails("Expected message") {
+                    Assertions.fail("Expected message")
+                }
             }
 
     @Test

@@ -28,7 +28,9 @@ class TestBaseTest {
 
     class TestSUT : TestBase<Int>() {
         fun getSut() = sut
-        fun setSut(sut: Int) { this.sut = sut }
+        fun setSut(sut: Int) {
+            this.sut = sut
+        }
     }
 
     @Test

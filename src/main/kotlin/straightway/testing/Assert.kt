@@ -44,7 +44,8 @@ inline fun <reified TException : Throwable> assertThrows(noinline action: () -> 
 @Suppress("TooGenericExceptionCaught")
 inline fun <reified TException : Throwable> assertThrows(
         expectedMessage: String,
-        noinline action: () -> Unit) {
+        noinline action: () -> Unit
+) {
     try {
         action()
         fail<Unit>("Action $action did not throw an exception")

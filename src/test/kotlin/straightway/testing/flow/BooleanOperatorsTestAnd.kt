@@ -21,24 +21,30 @@ import straightway.expr.Value
 
 class BooleanOperatorsTestAnd {
 
-    @Test fun isTrueIfBothArgumentsAreTrue() =
+    @Test
+    fun isTrueIfBothArgumentsAreTrue() =
             expect((Value(true) and Value(true))() is_ True)
 
-    @Test fun isFalseIfFirstArgumentIsFalse() =
+    @Test
+    fun isFalseIfFirstArgumentIsFalse() =
             expect((Value(false) and Value(true))() is_ False)
 
-    @Test fun isFalseIfSecondArgumentIsFalse() =
+    @Test
+    fun isFalseIfSecondArgumentIsFalse() =
             expect((Value(true) and Value(false))() is_ False)
 
-    @Test fun isFalseIfBothArgumentsAreFalse() =
+    @Test
+    fun isFalseIfBothArgumentsAreFalse() =
             expect((Value(false) and Value(false))() is_ False)
 
-    @Test fun passesArgumentsToBothSubExpressions() {
+    @Test
+    fun passesArgumentsToBothSubExpressions() {
         val left = FunExpr("left") { a -> expect(a is_ equal to_ 83); true }
         val right = FunExpr("right") { a -> expect(a is_ equal to_ 83); true }
         expect((left and right)(83) is_ True)
     }
 
-    @Test fun toString_yieldsProperString() =
+    @Test
+    fun toString_yieldsProperString() =
             expect((Value(true) and Value(false)).toString() is_ equal to_ "true and false")
 }
