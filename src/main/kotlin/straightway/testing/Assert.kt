@@ -28,6 +28,7 @@ fun assertPanics(action: () -> Unit) {
     assertThrows<Panic>(action)
 }
 
+@Suppress("TooGenericExceptionCaught")
 fun assertPanics(expectedState: Any, action: () -> Unit) {
     try {
         action()
@@ -41,7 +42,7 @@ inline fun <reified TException : Throwable> assertThrows(noinline action: () -> 
     Assertions.assertThrows<TException>(TException::class.java, action)
 }
 
-@Suppress("TooGenericExceptionCaught")
+@Suppress("TooGenericExceptionCaught", "InstanceOfCheckForException")
 inline fun <reified TException : Throwable> assertThrows(
         expectedMessage: String,
         noinline action: () -> Unit
