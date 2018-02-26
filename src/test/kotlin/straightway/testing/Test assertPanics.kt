@@ -18,11 +18,11 @@ package straightway.testing
 import org.junit.jupiter.api.Test
 import straightway.error.Panic
 
-class AssertTestAssertPanics {
+class `Test assertPanics` {
 
     @Test
-    fun passes_onPanic() = assertDoesNotThrow { assertPanics { throw Panic("Panic!") } }
+    fun `passes on Panic`() = assertDoesNotThrow { assertPanics { throw Panic("Panic!") } }
 
     @Test
-    fun fails_ifNoPanicOccurs() = assertFails { assertPanics { } }
+    fun `fails if no Panic occurs`() = assertFails { assertPanics { } }
 }

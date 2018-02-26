@@ -20,6 +20,5 @@ dependencies {
     compile kotlin("reflect")
     compile junit5("api")
     compile straightway('expr')
-    compile straightway('numbers')
     compile straightway('error')
 }

@@ -18,8 +18,7 @@ package straightway.testing.flow
 import straightway.expr.Expr
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
-import straightway.numbers.compareTo
-import straightway.numbers.minus
+import java.lang.Math.abs
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -74,16 +73,21 @@ val equal = Equal()
 fun equalWithin(range: Any) =
         Equal({ a, b ->
                   if (a is Number && b is Number && range is Number)
-                      abs(a, b) < range
+                      a.isWithinRangeOf(b, range)
                   else if (a is LocalDateTime && b is LocalDateTime && range is Duration)
-                      abs(a, b) < range
+                      distance(a, b) < range
                   else a == b
               })
 
-private fun abs(a: LocalDateTime, b: LocalDateTime) =
-        if (a < b) Duration.between(a, b) else Duration.between(b, a)
+private fun Number.isWithinRangeOf(other: Number, range: Number): Boolean =
+    if (this.isFloatingPoint || other.isFloatingPoint || range.isFloatingPoint)
+        abs(toDouble() - other.toDouble()) < range.toDouble()
+    else abs(toLong() - other.toLong()) < range.toLong()
 
-private fun abs(a: Number, b: Number) = if (a < b) b - a else a - b
+private val Number.isFloatingPoint get() = this is Float || this is Double
+
+private fun distance(a: LocalDateTime, b: LocalDateTime) =
+        if (a < b) Duration.between(a, b) else Duration.between(b, a)
 
 object Same
     : Relation, StateExpr<WithAs>, FunExpr("Same", { a, b -> a === b })

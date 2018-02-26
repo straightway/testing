@@ -18,18 +18,18 @@ package straightway.testing
 import org.junit.jupiter.api.Test
 import straightway.error.Panic
 
-class AssertTestAssertPanicsWithExpectedState {
+class `Test assertPanics with expected state` {
 
     @Test
-    fun passes_ifPanicOccurs_withCorrectState() =
+    fun `passes if Panic occurs with correct state`() =
             assertDoesNotThrow { assertPanics(expectedState) { throw Panic(expectedState) } }
 
     @Test
-    fun fails_ifNoPanicOccurs() =
+    fun `fails if no Panic occurs`() =
             assertFails { assertPanics(expectedState) {} }
 
     @Test
-    fun fails_ifPanicOccurs_withIncorrectState() =
+    fun `fails if Panic occurs with incorrect state`() =
             assertFails { assertPanics(expectedState) { throw Panic(unexpectedState) } }
 
     private companion object {
