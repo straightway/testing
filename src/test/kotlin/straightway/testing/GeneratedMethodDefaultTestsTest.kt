@@ -29,8 +29,8 @@ class GeneratedMethodDefaultTestsTest {
             val long: Long,
             val float: Float,
             val double: Double,
-            val nullablePrimitive: Int?)
-    {
+            val nullablePrimitive: Int?
+    ) {
         companion object {
             const val staticValue = "Static Value"
         }
