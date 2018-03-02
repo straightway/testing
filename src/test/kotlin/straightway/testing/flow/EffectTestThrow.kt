@@ -24,46 +24,46 @@ import straightway.testing.assertFails
 class EffectTestThrow {
     @Test
     fun passes() =
-            assertDoesNotThrow { expect(::panic does Throw - exception) }
+            assertDoesNotThrow { expect(::panic does throw_<Exception>()) }
 
     @Test
     fun passes_withSpecificException() =
-            assertDoesNotThrow { expect(::panic does Throw - Panic::class) }
+            assertDoesNotThrow { expect(::panic does throw_<Panic>()) }
 
     @Test
     fun negation_passes() =
-            assertDoesNotThrow { expect(::throwNothing does Not - Throw - exception) }
+            assertDoesNotThrow { expect(::throwNothing does not - throw_<Exception>()) }
 
     @Test
     fun negation_passes_withSpecificException() =
-            assertDoesNotThrow { expect(::panic does Not - Throw - NullPointerException::class) }
+            assertDoesNotThrow { expect(::panic does not - throw_<NullPointerException>()) }
 
     @Test
     fun fails() =
-            assertFails { expect(::throwNothing does Throw - exception) }
+            assertFails { expect(::throwNothing does throw_<Exception>()) }
 
     @Test
     fun fails_withSpecificException() =
-            assertFails { expect(::panic does Throw - NullPointerException::class) }
+            assertFails { expect(::panic does throw_<NullPointerException>()) }
 
     @Test
     fun negation_fails() =
-            assertFails { expect(::panic does Not - Throw - exception) }
+            assertFails { expect(::panic does not - throw_<Exception>()) }
 
     @Test
     fun fails_withMeaningfulMessage() =
             assertFails(
-                    "Expectation <class kotlin.Throwable thrown by fun throwNothing(): " +
+                    "Expectation <class java.lang.Exception thrown by fun throwNothing(): " +
                             "kotlin.Unit> failed") {
-                expect(::throwNothing does Throw - exception)
+                expect(::throwNothing does throw_<Exception>())
             }
 
     @Test
     fun negated_fails_withMeaningfulMessage() =
             assertFails(
-                    "Expectation <class kotlin.Throwable Not-thrown by fun panic(): " +
+                    "Expectation <class java.lang.Exception not-thrown by fun panic(): " +
                             "kotlin.Unit> failed") {
-                expect(::panic does Not - Throw - exception)
+                expect(::panic does not - throw_<Exception>())
             }
 }
 

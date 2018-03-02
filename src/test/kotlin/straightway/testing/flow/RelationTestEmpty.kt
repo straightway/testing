@@ -32,12 +32,12 @@ class RelationTestEmpty {
 
     @Test
     fun negationSucceeds_onNonEmptyCollection() =
-            assertDoesNotThrow { expect(listOf(1) is_ Not - Empty) }
+            assertDoesNotThrow { expect(listOf(1) is_ not - Empty) }
 
     @Test
     fun negationFails_onEmptyCollection() =
-            assertFails("Expectation <Not-Empty([])> failed") {
-                expect(listOf<Int>() is_ Not - Empty)
+            assertFails("Expectation <not-Empty([])> failed") {
+                expect(listOf<Int>() is_ not - Empty)
             }
 
     @Test
@@ -50,12 +50,12 @@ class RelationTestEmpty {
 
     @Test
     fun negationSucceeds_onNonEmptyArray() =
-            assertDoesNotThrow { expect(arrayOf(1) is_ Not - Empty) }
+            assertDoesNotThrow { expect(arrayOf(1) is_ not - Empty) }
 
     @Test
     fun negationFails_onEmptyArray() =
-            assertFails("Expectation <Not-Empty([])> failed") {
-                expect(arrayOf<Int>() is_ Not - Empty)
+            assertFails("Expectation <not-Empty([])> failed") {
+                expect(arrayOf<Int>() is_ not - Empty)
             }
 
     @Test
@@ -68,11 +68,11 @@ class RelationTestEmpty {
 
     @Test
     fun negationSucceeds_onNonEmptyString() =
-            assertDoesNotThrow { expect("Hello" is_ Not - Empty) }
+            assertDoesNotThrow { expect("Hello" is_ not - Empty) }
 
     @Test
     fun negationFails_onEmptyString() =
-            assertFails("Expectation <Not-Empty()> failed") { expect("" is_ Not - Empty) }
+            assertFails("Expectation <not-Empty()> failed") { expect("" is_ not - Empty) }
 
     @Test
     fun fails_forNonCollections() =
@@ -80,5 +80,5 @@ class RelationTestEmpty {
 
     @Test
     fun negationFails_forNonCollections() =
-            assertFails { expect(2 is_ Not - Empty) }
+            assertFails { expect(2 is_ not - Empty) }
 }

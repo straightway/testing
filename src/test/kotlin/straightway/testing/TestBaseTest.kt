@@ -16,12 +16,11 @@
 package straightway.testing
 
 import org.junit.jupiter.api.Test
-import straightway.testing.flow.Throw
 import straightway.testing.flow.does
 import straightway.testing.flow.equal
 import straightway.testing.flow.expect
 import straightway.testing.flow.is_
-import straightway.testing.flow.minus
+import straightway.testing.flow.throw_
 import straightway.testing.flow.to_
 
 class TestBaseTest {
@@ -35,7 +34,7 @@ class TestBaseTest {
 
     @Test
     fun callingUnsetSutThrows() =
-            expect({ TestSUT().getSut() } does Throw - NullPointerException::class)
+            expect({ TestSUT().getSut() } does throw_<NullPointerException>())
 
     @Test
     fun settingSut() {
@@ -49,6 +48,6 @@ class TestBaseTest {
         val testSUT = TestSUT()
         testSUT.setSut(83)
         testSUT.tearDown()
-        expect({ testSUT.getSut() } does Throw - NullPointerException::class)
+        expect({ testSUT.getSut() } does throw_<NullPointerException>())
     }
 }

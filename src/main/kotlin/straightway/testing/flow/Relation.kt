@@ -66,7 +66,7 @@ interface Unary : Relation
  * A relation determining if two values are equal.
  */
 class Equal(
-        predicate: (Any, Any) -> Boolean = { a, b -> a == b }
+        predicate: (Any?, Any?) -> Boolean = { a, b -> a == b }
 ) : Relation, StateExpr<WithTo>, FunExpr("equal", predicate)
 
 val equal = Equal()
@@ -93,10 +93,10 @@ object Same
     : Relation, StateExpr<WithAs>, FunExpr("Same", { a, b -> a === b })
 
 object Greater
-    : Relation, StateExpr<WithThan>, FunExpr("Greater", { a, b -> 0 < a.untypedCompareTo(b) })
+    : Relation, StateExpr<WithThan>, FunExpr("Greater", { a, b -> 0 < a!!.untypedCompareTo(b!!) })
 
 object Less
-    : Relation, StateExpr<WithThan>, FunExpr("Less", { a, b -> a.untypedCompareTo(b) < 0 })
+    : Relation, StateExpr<WithThan>, FunExpr("Less", { a, b -> a!!.untypedCompareTo(b!!) < 0 })
 
 @Suppress("UNCHECKED_CAST")
 private fun Any.untypedCompareTo(other: Any): Int =

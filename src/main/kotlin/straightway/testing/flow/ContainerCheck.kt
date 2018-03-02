@@ -29,7 +29,7 @@ object Size :
 object Empty :
         Relation,
         StateExpr<Unary>,
-        FunExpr("Empty", { a: Any -> !a.asIterable().any() })
+        FunExpr("Empty", { a: Any? -> !a!!.asIterable().any() })
 
 private fun Any.asIterable() =
         when (this) {

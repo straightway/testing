@@ -15,11 +15,11 @@
  */
 package straightway.testing.flow
 
-import straightway.expr.CombinableExpr
 import straightway.expr.DistributedExpr
 import straightway.expr.Expr
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
+import straightway.expr.combinable
 import straightway.expr.untyped
 
 object True
@@ -31,17 +31,17 @@ object False
 /**
  * Operator which logically negates its argument.
  */
-object Not : CombinableExpr, FunExpr("Not", untyped<Boolean, Boolean> { !it })
+val not = FunExpr("not", untyped<Boolean, Boolean> { !it }).combinable
 
-/**
- * Operator which distributes its arguments to_ the left and right expressions and yields
+/*
+ * Operator which distributes its arguments to the left and right expressions and yields
  * the logical conjunction of their boolean results.
  */
 infix fun Expr.and(other: Expr): Expr =
         DistributedExpr("and", this, other) { left(*it) as Boolean && right(*it) as Boolean }
 
 /**
- * Operator which distributes its arguments to_ the left and right expressions and yields
+ * Operator which distributes its arguments to the left and right expressions and yields
  * the logical disjunction of their boolean results.
  */
 infix fun Expr.or(other: Expr): Expr =

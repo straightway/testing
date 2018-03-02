@@ -29,8 +29,8 @@ class RelationTestLessThan {
     fun fails() = assertFails { expect(1 is_ Less than 1) }
 
     @Test
-    fun negated_succeeds() = assertDoesNotThrow { expect(1 is_ Not - Less than 1) }
+    fun negated_succeeds() = assertDoesNotThrow { expect(1 is_ not - Less than 1) }
 
     @Test
-    fun negated_fails() = assertFails { expect(1 is_ Not - Less than 2) }
+    fun negated_fails() = assertFails { expect(1 is_ not - Less than 2) }
 }

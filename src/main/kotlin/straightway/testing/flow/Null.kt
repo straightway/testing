@@ -16,8 +16,8 @@
 
 package straightway.testing.flow
 
-object Null
-object NotNull
+import straightway.expr.Expr
+import straightway.expr.FunExpr
+import straightway.expr.StateExpr
 
-@Suppress("UNUSED_PARAMETER", "unused")
-operator fun Not.minus(arg: Null) = NotNull
+object Null : Expr, StateExpr<Unary>, FunExpr("IsNull", { x: Any? -> x === null })
