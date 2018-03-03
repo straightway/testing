@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package straightway.testing.flow
 
 import org.opentest4j.AssertionFailedError
@@ -21,17 +20,29 @@ import straightway.expr.FunExpr
 import straightway.expr.StateExpr
 import straightway.expr.untyped
 
-object Size :
+val size: StateExpr<WithHasAndOf> = object :
         Relation,
         StateExpr<WithHasAndOf>,
-        FunExpr("Size", untyped { a: Any, s: Int -> (a as Iterable<*>).count() == s })
+        FunExpr("size", untyped { a: Any, s: Int -> a.asIterable.count() == s }) {}
 
-object Empty :
+val empty: StateExpr<WithHas> = object :
         Relation,
-        StateExpr<Unary>,
-        FunExpr("Empty", { a: Any? -> !a!!.asIterable().any() })
+        StateExpr<WithHas>,
+        FunExpr("empty", { a: Any? -> !a.asIterable.any() }) {}
 
-private fun Any.asIterable() =
+fun <T> elements(vararg elements: T?): StateExpr<WithHas> = Elements(elements)
+
+private class Elements(val elements: Array<*>) :
+        Relation,
+        StateExpr<WithHas>,
+        FunExpr(
+                "Elements",
+                { a: Any? ->
+                    val iterable = a.asIterable
+                    elements.all { iterable.contains(it) }
+                })
+
+private val Any?.asIterable get() =
         when (this) {
             is Iterable<*> -> this
             is Array<*> -> this.asList()
