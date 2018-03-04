@@ -31,7 +31,7 @@ class `Test relation is_ equal to` {
     fun fails() = assertFails { expect(1 is_ equal to_ 2) }
 
     @Test
-    fun negation_passes() = assertDoesNotThrow { expect(1 is_ not - equal to_ 2) }
+    fun negation_passes() = assertDoesNotThrow { expect(1 is_ Not - equal to_ 2) }
 
     @Test
     fun number_range_smallerFirst_passes() =
@@ -47,7 +47,7 @@ class `Test relation is_ equal to` {
 
     @Test
     fun number_range_negation_passes() =
-            assertDoesNotThrow { expect(1.3 is_ not - equalWithin(0.2) to_ 1.0) }
+            assertDoesNotThrow { expect(1.3 is_ Not - equalWithin(0.2) to_ 1.0) }
 
     @Test
     fun duration_range_smallerFirst_passes() = assertDoesNotThrow {
@@ -74,7 +74,7 @@ class `Test relation is_ equal to` {
     fun duration_range_negation_passes() = assertDoesNotThrow {
         expect(
                 LocalDateTime.of(0, 1, 1, 0, 0, 0)
-                        is_ not - equalWithin(Duration.ofDays(2))
+                        is_ Not - equalWithin(Duration.ofDays(2))
                         to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
     }
 }

@@ -20,19 +20,26 @@ import straightway.expr.FunExpr
 import straightway.expr.StateExpr
 import straightway.expr.untyped
 
-val size: StateExpr<WithHasAndOf> = object :
+/**
+ * Check the size of a collection.
+ */
+object Size :
         Relation,
         StateExpr<WithHasAndOf>,
-        FunExpr("size", untyped { a: Any, s: Int -> a.asIterable.count() == s }) {}
+        FunExpr("Size", untyped { a: Any, s: Int -> a.asIterable.count() == s })
 
-val empty: StateExpr<WithHas> = object :
+/**
+ * Check is a collection is empty.
+ */
+object Empty :
         Relation,
         StateExpr<WithHas>,
-        FunExpr("empty", { a: Any? -> !a.asIterable.any() }) {}
+        FunExpr("Empty", { a: Any? -> !a.asIterable.any() })
 
-fun <T> elements(vararg elements: T?): StateExpr<WithHas> = Elements(elements)
-
-private class Elements(val elements: Array<*>) :
+/**
+ * Check if a collection contains all of the specified elements.
+ */
+class Elements(private val elements: Array<*>) :
         Relation,
         StateExpr<WithHas>,
         FunExpr(
@@ -40,7 +47,12 @@ private class Elements(val elements: Array<*>) :
                 { a: Any? ->
                     val iterable = a.asIterable
                     elements.all { iterable.contains(it) }
-                })
+                }) {
+
+    companion object {
+        operator fun invoke(vararg elements: Any?) = Elements(elements)
+    }
+}
 
 private val Any?.asIterable get() =
         when (this) {

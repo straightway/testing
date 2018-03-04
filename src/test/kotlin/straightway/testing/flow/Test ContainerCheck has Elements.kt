@@ -19,37 +19,37 @@ import org.junit.jupiter.api.Test
 import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
 
-class `Test ContainerCheck has elements` {
+class `Test ContainerCheck has Elements` {
 
     @Test
     fun `empty collection has not elements`() =
-            assertFails { expect(arrayOf<Int>() has elements(2)) }
+            assertFails { expect(arrayOf<Int>() has Elements(2)) }
 
     @Test
     fun `single element collection with searched element succeeds`() =
-            assertDoesNotThrow { expect(arrayOf(2) has elements(2)) }
+            assertDoesNotThrow { expect(arrayOf(2) has Elements(2)) }
 
     @Test
     fun `single element collection without searched element fails`() =
-            assertFails { expect(arrayOf(2) has elements(3)) }
+            assertFails { expect(arrayOf(2) has Elements(3)) }
 
     @Test
     fun `single element collection with one of two searched elements fails`() =
-            assertFails { expect(arrayOf(2) has elements(2, 3)) }
+            assertFails { expect(arrayOf(2) has Elements(2, 3)) }
 
     @Test
     fun `two element collection with both searched elements succeeds`() =
-            assertDoesNotThrow { expect(arrayOf(3, 2) has elements(2, 3)) }
+            assertDoesNotThrow { expect(arrayOf(3, 2) has Elements(2, 3)) }
 
     @Test
     fun `three element collection with both searched elements succeeds`() =
-            assertDoesNotThrow { expect(arrayOf(5, 3, 2) has elements(2, 3)) }
+            assertDoesNotThrow { expect(arrayOf(5, 3, 2) has Elements(2, 3)) }
 
     @Test
     fun `works with List`() =
-            assertDoesNotThrow { expect(listOf(2) has elements(2)) }
+            assertDoesNotThrow { expect(listOf(2) has Elements(2)) }
 
     @Test
     fun `works with String`() =
-            assertDoesNotThrow { expect("Hello World" has elements('l', 'W')) }
+            assertDoesNotThrow { expect("Hello World" has Elements('l', 'W')) }
 }

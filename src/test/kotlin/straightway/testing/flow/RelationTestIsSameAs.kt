@@ -26,13 +26,13 @@ class RelationTestIsSameAs {
     fun passes() = assertDoesNotThrow { expect(a is_ Same as_ a) }
 
     @Test
-    fun negation_passes() = assertDoesNotThrow { expect(a is_ not - Same as_ b) }
+    fun negation_passes() = assertDoesNotThrow { expect(a is_ Not - Same as_ b) }
 
     @Test
     fun isSameAs_fails() = assertFails { expect(a is_ Same as_ b) }
 
     @Test
-    fun isNotSameAs_fails() = assertFails { expect(a is_ not - Same as_ a) }
+    fun isNotSameAs_fails() = assertFails { expect(a is_ Not - Same as_ a) }
 
     private data class EqualButNotSame(val value: Int)
     private companion object {

@@ -24,46 +24,46 @@ import straightway.testing.assertFails
 class EffectTestThrow {
     @Test
     fun passes() =
-            assertDoesNotThrow { expect(::panic does throw_<Exception>()) }
+            assertDoesNotThrow { expect(::panic does Throw.exception) }
 
     @Test
     fun passes_withSpecificException() =
-            assertDoesNotThrow { expect(::panic does throw_<Panic>()) }
+            assertDoesNotThrow { expect(::panic does Throw.type<Panic>()) }
 
     @Test
     fun negation_passes() =
-            assertDoesNotThrow { expect(::throwNothing does not - throw_<Exception>()) }
+            assertDoesNotThrow { expect(::throwNothing does Not - Throw.exception) }
 
     @Test
     fun negation_passes_withSpecificException() =
-            assertDoesNotThrow { expect(::panic does not - throw_<NullPointerException>()) }
+            assertDoesNotThrow { expect(::panic does Not - Throw.type<NullPointerException>()) }
 
     @Test
     fun fails() =
-            assertFails { expect(::throwNothing does throw_<Exception>()) }
+            assertFails { expect(::throwNothing does Throw.exception) }
 
     @Test
     fun fails_withSpecificException() =
-            assertFails { expect(::panic does throw_<NullPointerException>()) }
+            assertFails { expect(::panic does Throw.type<NullPointerException>()) }
 
     @Test
     fun negation_fails() =
-            assertFails { expect(::panic does not - throw_<Exception>()) }
+            assertFails { expect(::panic does Not - Throw.exception) }
 
     @Test
     fun fails_withMeaningfulMessage() =
             assertFails(
-                    "Expectation <class java.lang.Exception thrown by fun throwNothing(): " +
+                    "Expectation <class kotlin.Throwable thrown by fun throwNothing(): " +
                             "kotlin.Unit> failed") {
-                expect(::throwNothing does throw_<Exception>())
+                expect(::throwNothing does Throw.exception)
             }
 
     @Test
     fun negated_fails_withMeaningfulMessage() =
             assertFails(
-                    "Expectation <class java.lang.Exception not-thrown by fun panic(): " +
+                    "Expectation <class kotlin.Throwable Not-thrown by fun panic(): " +
                             "kotlin.Unit> failed") {
-                expect(::panic does not - throw_<Exception>())
+                expect(::panic does Not - Throw.exception)
             }
 }
 

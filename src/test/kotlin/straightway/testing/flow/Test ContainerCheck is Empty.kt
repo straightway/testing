@@ -24,69 +24,69 @@ class `Test ContainerCheck is Empty` {
 
     @Test
     fun `succeeds on empty collection`() =
-            assertDoesNotThrow { expect(listOf<Int>() is_ empty) }
+            assertDoesNotThrow { expect(listOf<Int>() is_ Empty) }
 
     @Test
     fun `fails on non empty collection`() =
-            assertFails("Expectation <empty([1])> failed") { expect(listOf(1) is_ empty) }
+            assertFails("Expectation <Empty([1])> failed") { expect(listOf(1) is_ Empty) }
 
     @Test
     fun `negation succeeds on non empty collection`() =
-            assertDoesNotThrow { expect(listOf(1) is_ not - empty) }
+            assertDoesNotThrow { expect(listOf(1) is_ Not - Empty) }
 
     @Test
     fun `negation fails on empty collection`() =
-            assertFails("Expectation <not-empty([])> failed") {
-                expect(listOf<Int>() is_ not - empty)
+            assertFails("Expectation <Not-Empty([])> failed") {
+                expect(listOf<Int>() is_ Not - Empty)
             }
 
     @Test
     fun `succeeds on empty array`() =
-            assertDoesNotThrow { expect(arrayOf<Int>() is_ empty) }
+            assertDoesNotThrow { expect(arrayOf<Int>() is_ Empty) }
 
     @Test
     fun `fails on non empty array`() =
-            assertFails("Expectation <empty([1])> failed") { expect(arrayOf(1) is_ empty) }
+            assertFails("Expectation <Empty([1])> failed") { expect(arrayOf(1) is_ Empty) }
 
     @Test
     fun `negation succeeds on non empty array`() =
-            assertDoesNotThrow { expect(arrayOf(1) is_ not - empty) }
+            assertDoesNotThrow { expect(arrayOf(1) is_ Not - Empty) }
 
     @Test
     fun `negation fails on empty array`() =
-            assertFails("Expectation <not-empty([])> failed") {
-                expect(arrayOf<Int>() is_ not - empty)
+            assertFails("Expectation <Not-Empty([])> failed") {
+                expect(arrayOf<Int>() is_ Not - Empty)
             }
 
     @Test
     fun `succeeds on empty string`() =
-            assertDoesNotThrow { expect("" is_ empty) }
+            assertDoesNotThrow { expect("" is_ Empty) }
 
     @Test
     fun `fails on non empty string`() =
-            assertFails("Expectation <empty(Hello)> failed") { expect("Hello" is_ empty) }
+            assertFails("Expectation <Empty(Hello)> failed") { expect("Hello" is_ Empty) }
 
     @Test
     fun `negation succeeds on non empty string`() =
-            assertDoesNotThrow { expect("Hello" is_ not - empty) }
+            assertDoesNotThrow { expect("Hello" is_ Not - Empty) }
 
     @Test
     fun `negation fails on empty string`() =
-            assertFails("Expectation <not-empty()> failed") { expect("" is_ not - empty) }
+            assertFails("Expectation <Not-Empty()> failed") { expect("" is_ Not - Empty) }
 
     @Test
     fun `fails for non collections`() =
-            assertFails { expect(2 is_ empty) }
+            assertFails { expect(2 is_ Empty) }
 
     @Test
     fun `negation fails for non collections`() =
-            assertFails { expect(2 is_ not - empty) }
+            assertFails { expect(2 is_ Not - Empty) }
 
     @Test
     fun `fails for null`() =
-            assertFails { expect(null is_ empty) }
+            assertFails { expect(null is_ Empty) }
 
     @Test
     fun `negation fails for null`() =
-            assertFails { expect(null is_ not - empty) }
+            assertFails { expect(null is_ Not - Empty) }
 }

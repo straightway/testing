@@ -23,49 +23,49 @@ class `Test ContainerCheck has Size` {
 
     @Test
     fun `success for List`() =
-            assertDoesNotThrow { expect(listOf(1, 2, 3) has size of 3) }
+            assertDoesNotThrow { expect(listOf(1, 2, 3) has Size of 3) }
 
     @Test
     fun `failure for List`() =
-            assertFails { expect(listOf(1, 2, 3) has size of 1) }
+            assertFails { expect(listOf(1, 2, 3) has Size of 1) }
 
     @Test
     fun `negated success for List`() =
-            assertDoesNotThrow { expect(listOf(1, 2, 3) has size of 3) }
+            assertDoesNotThrow { expect(listOf(1, 2, 3) has Size of 3) }
 
     @Test
     fun `negated failure for List`() =
-            assertFails { expect(listOf(1, 2, 3) has size of 1) }
+            assertFails { expect(listOf(1, 2, 3) has Size of 1) }
 
     @Test
     fun `success for Array`() =
-            assertDoesNotThrow { expect(arrayOf(1, 2, 3) has size of 3) }
+            assertDoesNotThrow { expect(arrayOf(1, 2, 3) has Size of 3) }
 
     @Test
     fun `failure for Array`() =
-            assertFails { expect(arrayOf(1, 2, 3) has size of 1) }
+            assertFails { expect(arrayOf(1, 2, 3) has Size of 1) }
 
     @Test
     fun `negated success for Array`() =
-            assertDoesNotThrow { expect(arrayOf(1, 2, 3) has size of 3) }
+            assertDoesNotThrow { expect(arrayOf(1, 2, 3) has Size of 3) }
 
     @Test
     fun `negated failure for Array`() =
-            assertFails { expect(arrayOf(1, 2, 3) has size of 1) }
+            assertFails { expect(arrayOf(1, 2, 3) has Size of 1) }
 
     @Test
     fun `success for String`() =
-            assertDoesNotThrow { expect("123" has size of 3) }
+            assertDoesNotThrow { expect("123" has Size of 3) }
 
     @Test
     fun `failure for String`() =
-            assertFails { expect("123" has size of 1) }
+            assertFails { expect("123" has Size of 1) }
 
     @Test
     fun `negated success for String`() =
-            assertDoesNotThrow { expect("123" has size of 3) }
+            assertDoesNotThrow { expect("123" has Size of 3) }
 
     @Test
     fun `negated failure for String`() =
-            assertFails { expect("123" has size of 1) }
+            assertFails { expect("123" has Size of 1) }
 }

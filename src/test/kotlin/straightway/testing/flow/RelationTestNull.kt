@@ -26,10 +26,10 @@ class RelationTestNull {
     fun null_is_null() = assertDoesNotThrow { expect(null is_ Null) }
 
     @Test
-    fun null_is_not_notnull() = assertFails { expect(null is_ not - Null) }
+    fun null_is_not_notnull() = assertFails { expect(null is_ Not - Null) }
 
     @Test
-    fun notNull_is_not_null() = assertDoesNotThrow { expect(1 is_ not - Null) }
+    fun notNull_is_not_null() = assertDoesNotThrow { expect(1 is_ Not - Null) }
 
     @Test
     fun notNull_is_notnull() = assertFails { expect(1 is_ Null) }

@@ -20,7 +20,7 @@ import straightway.testing.flow.does
 import straightway.testing.flow.equal
 import straightway.testing.flow.expect
 import straightway.testing.flow.is_
-import straightway.testing.flow.throw_
+import straightway.testing.flow.Throw
 import straightway.testing.flow.to_
 
 class TestBaseTest {
@@ -34,7 +34,7 @@ class TestBaseTest {
 
     @Test
     fun callingUnsetSutThrows() =
-            expect({ TestSUT().getSut() } does throw_<NullPointerException>())
+            expect({ TestSUT().getSut() } does Throw.type<NullPointerException>())
 
     @Test
     fun settingSut() {
@@ -48,6 +48,6 @@ class TestBaseTest {
         val testSUT = TestSUT()
         testSUT.setSut(83)
         testSUT.tearDown()
-        expect({ testSUT.getSut() } does throw_<NullPointerException>())
+        expect({ testSUT.getSut() } does Throw.type<NullPointerException>())
     }
 }

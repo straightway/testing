@@ -45,7 +45,7 @@ class ExpectTest {
 
     @Test
     fun failure_monadicWithDyadicOp_withMeaningfulExplanation() =
-            assertFails("Expectation <1 not-equal 1> failed") { expect(1 is_ not - equal to_ 1) }
+            assertFails("Expectation <1 Not-equal 1> failed") { expect(1 is_ Not - equal to_ 1) }
 
     @Test
     fun failure_notFullyBoundExpression_withMeaningfulExplanation() =

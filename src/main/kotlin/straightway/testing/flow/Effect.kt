@@ -30,7 +30,7 @@ import kotlin.reflect.KClass
 interface Effect : Expr
 
 @Suppress("TooGenericExceptionCaught")
-object ThrowEffect :
+object Throw :
         StateExpr<Effect>,
         FunExpr(
                 "thrown by",
@@ -40,11 +40,10 @@ object ThrowEffect :
                     } catch (e: Throwable) {
                         exception.isInstance(e)
                     }
-                })
+                }) {
 
-@Suppress("FunctionNaming")
-inline fun <reified T : Throwable> throw_(): StateExpr<Effect> {
-    return BoundExpr(ThrowEffect, Value(T::class)).inState()
+    val exception = BoundExpr(this, Value(Throwable::class)).inState<Effect>()
+    inline fun <reified T : Throwable> type() = BoundExpr(this, Value(T::class)).inState<Effect>()
 }
 
 infix fun <T : Effect> (() -> Any).does(op: StateExpr<T>) =
