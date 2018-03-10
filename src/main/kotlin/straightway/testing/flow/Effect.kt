@@ -46,5 +46,5 @@ object Throw :
     inline fun <reified T : Throwable> type() = BoundExpr(this, Value(T::class)).inState<Effect>()
 }
 
-infix fun <T : Effect> (() -> Any).does(op: StateExpr<T>) =
+infix fun <T : Effect> (() -> Any?).does(op: StateExpr<T>) =
         BoundExpr(op, Value(this)).inState<T>()
