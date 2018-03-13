@@ -13,51 +13,27 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package straightway.testing.flow
 
-import org.opentest4j.AssertionFailedError
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
-import straightway.expr.untyped
 
 /**
- * Check the size of a collection.
+ * Unary operator checking if its argument is a container and contains
+ * a number of specified objects by value.
  */
-object Size :
-        Relation,
-        StateExpr<WithHasAndOf>,
-        FunExpr("Size", untyped { a: Any, s: Int -> a.asIterable.count() == s })
-
-/**
- * Check is a collection is empty.
- */
-object Empty :
-        Relation,
-        StateExpr<WithHas>,
-        FunExpr("Empty", { a: Any? -> !a.asIterable.any() })
-
-/**
- * Check if a collection contains all of the specified elements.
- */
-class Elements(private val elements: Array<*>) :
+class Values private constructor(private val elements: Array<*>) :
         Relation,
         StateExpr<WithHas>,
         FunExpr(
-                "Elements",
+                "Values[${elements.joinToString(", ")}]",
                 { a: Any? ->
                     val iterable = a.asIterable
                     elements.all { iterable.contains(it) }
                 }) {
 
     companion object {
-        operator fun invoke(vararg elements: Any?) = Elements(elements)
+        operator fun invoke(vararg elements: Any?) = Values(elements)
     }
 }
-
-private val Any?.asIterable get() =
-        when (this) {
-            is Iterable<*> -> this
-            is Array<*> -> this.asList()
-            is CharSequence -> this.toList()
-            else -> throw AssertionFailedError("Cannot convert $this to_ iterable")
-        }

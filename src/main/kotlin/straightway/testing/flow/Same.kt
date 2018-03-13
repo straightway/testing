@@ -13,18 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package straightway.testing.flow
 
-import straightway.expr.BoundExpr
-import straightway.expr.Expr
+import straightway.expr.FunExpr
 import straightway.expr.StateExpr
-import straightway.expr.Value
-import straightway.expr.inState
 
 /**
- * An expression which tests the effect of a given lambda object.
+ * Operator checking if the two arguments are equal by reference.
  */
-interface Effect : Expr
-
-infix fun <T : Effect> (() -> Any?).does(op: StateExpr<T>) =
-        BoundExpr(op, Value(this)).inState<T>()
+object Same
+    : Relation, StateExpr<WithAs>, FunExpr("Same", { a, b -> a === b })

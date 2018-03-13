@@ -18,7 +18,7 @@ package straightway.testing.bdd
 import org.junit.jupiter.api.Test
 import straightway.testing.flow.Same
 import straightway.testing.flow.as_
-import straightway.testing.flow.equal
+import straightway.testing.flow.Equal
 import straightway.testing.flow.expect
 import straightway.testing.flow.is_
 import straightway.testing.flow.to_
@@ -39,7 +39,7 @@ class GivenTest {
                 val field = "Hello"
             }
         }
-        expect(sut.context.field is_ equal to_ "Hello")
+        expect(sut.context.field is_ Equal to_ "Hello")
     }
 
     @Test
@@ -53,6 +53,6 @@ class GivenTest {
     fun `when_ yields GivenWhen instance with when result`() {
         val context = Any()
         val givenWhen = Given { context }.when_ { "Hello" }
-        expect(givenWhen.result.result is_ equal to_ "Hello")
+        expect(givenWhen.result.result is_ Equal to_ "Hello")
     }
 }

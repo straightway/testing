@@ -16,7 +16,7 @@
 package straightway.testing
 
 import org.junit.jupiter.api.Test
-import straightway.testing.flow.equal
+import straightway.testing.flow.Equal
 import straightway.testing.flow.expect
 import straightway.testing.flow.is_
 import straightway.testing.flow.to_
@@ -24,12 +24,12 @@ import straightway.testing.flow.to_
 class CallCounterTest {
 
     @Test
-    fun callCountIsInitiallyZero() = expect(CallCounter().calls is_ equal to_ 0)
+    fun callCountIsInitiallyZero() = expect(CallCounter().calls is_ Equal to_ 0)
 
     @Test
     fun callCountIsOneAfterOneCall() {
         val sut = CallCounter()
         sut.action()
-        expect(sut.calls is_ equal to_ 1)
+        expect(sut.calls is_ Equal to_ 1)
     }
 }

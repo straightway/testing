@@ -13,18 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package straightway.testing.flow
 
-import straightway.expr.BoundExpr
-import straightway.expr.Expr
-import straightway.expr.StateExpr
-import straightway.expr.Value
-import straightway.expr.inState
-
 /**
- * An expression which tests the effect of a given lambda object.
+ * A relation having only one parameter.
  */
-interface Effect : Expr
-
-infix fun <T : Effect> (() -> Any?).does(op: StateExpr<T>) =
-        BoundExpr(op, Value(this)).inState<T>()
+interface Unary : Relation

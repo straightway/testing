@@ -20,7 +20,7 @@ import straightway.expr.minus
 import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
 
-class `Test ContainerCheck is Empty` {
+class TestEmpty {
 
     @Test
     fun `succeeds on empty collection`() =

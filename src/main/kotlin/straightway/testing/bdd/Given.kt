@@ -26,7 +26,7 @@ package straightway.testing.bdd
  * } when_ {
  *   value + 2
  * } then {
- *   expect(it is_ Not-equal to_ value)
+ *   expect(it is_ Not-Equal to_ value)
  * }
  */
 class Given<TContext> private constructor(val context: TContext) {

@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test
 import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
 
-class `Test ContainerCheck has Size` {
+class TestSize {
 
     @Test
     fun `success for List`() =

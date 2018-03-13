@@ -17,7 +17,7 @@
 package straightway.testing.bdd
 
 import org.junit.jupiter.api.Test
-import straightway.testing.flow.equal
+import straightway.testing.flow.Equal
 import straightway.testing.flow.expect
 import straightway.testing.flow.is_
 import straightway.testing.flow.to_
@@ -28,9 +28,9 @@ class ReUseGivenContextInUnitTest {
 
     @Test
     fun `use and modify given context in one test`() =
-            test when_ { x += 4 } then { expect(x is_ equal to_ 11) }
+            test when_ { x += 4 } then { expect(x is_ Equal to_ 11) }
 
     @Test
     fun `use and modify given context in another test`() =
-            test when_ { x += 6 } then { expect(x is_ equal to_ 13) }
+            test when_ { x += 6 } then { expect(x is_ Equal to_ 13) }
 }

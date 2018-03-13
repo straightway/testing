@@ -22,7 +22,7 @@ import straightway.testing.flow.Not
 import straightway.testing.flow.Null
 import straightway.testing.flow.Throw
 import straightway.testing.flow.does
-import straightway.testing.flow.equal
+import straightway.testing.flow.Equal
 import straightway.testing.flow.expect
 import straightway.testing.flow.is_
 import straightway.testing.flow.to_
@@ -38,7 +38,7 @@ class GivenWhenThenTest {
             } when_ {
                 value + 2
             } then {
-                expect(it is_ Not - equal to_ value)
+                expect(it is_ Not - Equal to_ value)
             }
 
     @Test
@@ -49,7 +49,7 @@ class GivenWhenThenTest {
                 throw Panic(this)
             } then {
                 expect({ it.result } does Throw.type<Panic>())
-                expect((it.exception as Panic).state is_ equal to_ "Aaaaah!")
+                expect((it.exception as Panic).state is_ Equal to_ "Aaaaah!")
             }
 
     @Test

@@ -16,88 +16,8 @@
 package straightway.testing.flow
 
 import straightway.expr.Expr
-import straightway.expr.FunExpr
-import straightway.expr.StateExpr
-import java.lang.Math.abs
-import java.time.Duration
-import java.time.LocalDateTime
 
 /**
  * An expression which represents a relation between two object.
  */
 interface Relation : Expr
-
-/**
- * A relation which requires 'to' as preposition.
- */
-interface WithTo : Relation
-
-/**
- * A relation which requires 'as' as preposition.
- */
-interface WithAs : Relation
-
-/**
- * A relation which requires 'than' as preposition.
- */
-interface WithThan : Relation
-
-/**
- * A relation which requires 'has' as prepositional verb.
- */
-interface WithHas : Relation
-
-/**
- * A relation which requires 'of' as preposition.
- */
-interface WithOf : Relation
-
-/**
- * A relation which requires both, 'has' as prepositional verb and 'of' as preposition.
- */
-interface WithHasAndOf : WithHas, WithOf
-
-/**
- * A relation having only one parameter.
- */
-interface Unary : Relation
-
-/**
- * A relation determining if two values are equal.
- */
-class Equal(
-        predicate: (Any?, Any?) -> Boolean = { a, b -> a == b }
-) : Relation, StateExpr<WithTo>, FunExpr("equal", predicate)
-
-val equal = Equal()
-fun equalWithin(range: Any) =
-        Equal({ a, b ->
-                  if (a is Number && b is Number && range is Number)
-                      a.isWithinRangeOf(b, range)
-                  else if (a is LocalDateTime && b is LocalDateTime && range is Duration)
-                      distance(a, b) < range
-                  else a == b
-              })
-
-private fun Number.isWithinRangeOf(other: Number, range: Number): Boolean =
-    if (this.isFloatingPoint || other.isFloatingPoint || range.isFloatingPoint)
-        abs(toDouble() - other.toDouble()) < range.toDouble()
-    else abs(toLong() - other.toLong()) < range.toLong()
-
-private val Number.isFloatingPoint get() = this is Float || this is Double
-
-private fun distance(a: LocalDateTime, b: LocalDateTime) =
-        if (a < b) Duration.between(a, b) else Duration.between(b, a)
-
-object Same
-    : Relation, StateExpr<WithAs>, FunExpr("Same", { a, b -> a === b })
-
-object Greater
-    : Relation, StateExpr<WithThan>, FunExpr("Greater", { a, b -> 0 < a!!.untypedCompareTo(b!!) })
-
-object Less
-    : Relation, StateExpr<WithThan>, FunExpr("Less", { a, b -> a!!.untypedCompareTo(b!!) < 0 })
-
-@Suppress("UNCHECKED_CAST")
-private fun Any.untypedCompareTo(other: Any): Int =
-        (this as Comparable<Any>).compareTo(other)

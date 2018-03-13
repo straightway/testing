@@ -39,12 +39,12 @@ class BooleanOperatorsTestAnd {
 
     @Test
     fun passesArgumentsToBothSubExpressions() {
-        val left = FunExpr("left") { a -> expect(a is_ equal to_ 83); true }
-        val right = FunExpr("right") { a -> expect(a is_ equal to_ 83); true }
+        val left = FunExpr("left") { a -> expect(a is_ Equal to_ 83); true }
+        val right = FunExpr("right") { a -> expect(a is_ Equal to_ 83); true }
         expect((left and right)(83) is_ True)
     }
 
     @Test
     fun toString_yieldsProperString() =
-            expect((Value(true) and Value(false)).toString() is_ equal to_ "true and false")
+            expect((Value(true) and Value(false)).toString() is_ Equal to_ "true and false")
 }

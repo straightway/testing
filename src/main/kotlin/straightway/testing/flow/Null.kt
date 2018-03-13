@@ -20,4 +20,7 @@ import straightway.expr.Expr
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
 
-object Null : Expr, StateExpr<Unary>, FunExpr("IsNull", { x: Any? -> x === null })
+/**
+ * Unary operator checking if its argument is null.
+ */
+object Null : Expr, StateExpr<Unary>, FunExpr("Null", { x: Any? -> x === null })

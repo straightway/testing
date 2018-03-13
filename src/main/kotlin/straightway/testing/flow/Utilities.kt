@@ -15,16 +15,16 @@
  */
 package straightway.testing.flow
 
-import straightway.expr.BoundExpr
-import straightway.expr.Expr
-import straightway.expr.StateExpr
-import straightway.expr.Value
-import straightway.expr.inState
+import org.opentest4j.AssertionFailedError
 
-/**
- * An expression which tests the effect of a given lambda object.
- */
-interface Effect : Expr
+internal val Any?.asIterable get() =
+        when (this) {
+            is Iterable<*> -> this
+            is Array<*> -> this.asList()
+            is CharSequence -> this.toList()
+            else -> throw AssertionFailedError("Cannot convert $this to_ iterable")
+        }
 
-infix fun <T : Effect> (() -> Any?).does(op: StateExpr<T>) =
-        BoundExpr(op, Value(this)).inState<T>()
+@Suppress("UNCHECKED_CAST")
+internal fun Any.untypedCompareTo(other: Any): Int =
+        (this as Comparable<Any>).compareTo(other)

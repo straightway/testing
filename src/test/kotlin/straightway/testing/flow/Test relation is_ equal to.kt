@@ -25,56 +25,56 @@ import java.time.LocalDateTime
 class `Test relation is_ equal to` {
 
     @Test
-    fun passes() = assertDoesNotThrow { expect(1 is_ equal to_ 1) }
+    fun passes() = assertDoesNotThrow { expect(1 is_ Equal to_ 1) }
 
     @Test
-    fun fails() = assertFails { expect(1 is_ equal to_ 2) }
+    fun fails() = assertFails { expect(1 is_ Equal to_ 2) }
 
     @Test
-    fun negation_passes() = assertDoesNotThrow { expect(1 is_ Not - equal to_ 2) }
+    fun negation_passes() = assertDoesNotThrow { expect(1 is_ Not - Equal to_ 2) }
 
     @Test
     fun number_range_smallerFirst_passes() =
-            assertDoesNotThrow { expect(0.9 is_ equalWithin(0.2) to_ 1.0) }
+            assertDoesNotThrow { expect(0.9 is_ EqualWithin(0.2) to_ 1.0) }
 
     @Test
     fun number_range_biggerFirst_passes() =
-            assertDoesNotThrow { expect(1.1 is_ equalWithin(0.2) to_ 1.0) }
+            assertDoesNotThrow { expect(1.1 is_ EqualWithin(0.2) to_ 1.0) }
 
     @Test
     fun number_range_fails() =
-            assertFails { expect(1.3 is_ equalWithin(0.2) to_ 1.0) }
+            assertFails { expect(1.3 is_ EqualWithin(0.2) to_ 1.0) }
 
     @Test
     fun number_range_negation_passes() =
-            assertDoesNotThrow { expect(1.3 is_ Not - equalWithin(0.2) to_ 1.0) }
+            assertDoesNotThrow { expect(1.3 is_ Not - EqualWithin(0.2) to_ 1.0) }
 
     @Test
     fun duration_range_smallerFirst_passes() = assertDoesNotThrow {
         expect(
                 LocalDateTime.of(0, 1, 1, 0, 0, 0)
-                        is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 2, 0, 0, 0))
+                        is_ EqualWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 2, 0, 0, 0))
     }
 
     @Test
     fun duration_range_biggerFirst_passes() = assertDoesNotThrow {
         expect(
                 LocalDateTime.of(0, 1, 2, 0, 0, 0)
-                        is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 1, 0, 0, 0))
+                        is_ EqualWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 1, 0, 0, 0))
     }
 
     @Test
     fun duration_range_fails() = assertFails {
         expect(
                 LocalDateTime.of(0, 1, 1, 0, 0, 0)
-                        is_ equalWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
+                        is_ EqualWithin(Duration.ofDays(2)) to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
     }
 
     @Test
     fun duration_range_negation_passes() = assertDoesNotThrow {
         expect(
                 LocalDateTime.of(0, 1, 1, 0, 0, 0)
-                        is_ Not - equalWithin(Duration.ofDays(2))
+                        is_ Not - EqualWithin(Duration.ofDays(2))
                         to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
     }
 }

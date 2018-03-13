@@ -17,7 +17,7 @@ package straightway.testing
 
 import org.junit.jupiter.api.Test
 import straightway.testing.flow.does
-import straightway.testing.flow.equal
+import straightway.testing.flow.Equal
 import straightway.testing.flow.expect
 import straightway.testing.flow.is_
 import straightway.testing.flow.Throw
@@ -40,7 +40,7 @@ class TestBaseTest {
     fun settingSut() {
         val testSUT = TestSUT()
         testSUT.setSut(83)
-        expect(testSUT.getSut() is_ equal to_ 83)
+        expect(testSUT.getSut() is_ Equal to_ 83)
     }
 
     @Test

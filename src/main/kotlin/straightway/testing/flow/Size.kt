@@ -13,18 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package straightway.testing.flow
 
-import straightway.expr.BoundExpr
-import straightway.expr.Expr
+import straightway.expr.FunExpr
 import straightway.expr.StateExpr
-import straightway.expr.Value
-import straightway.expr.inState
+import straightway.expr.untyped
 
 /**
- * An expression which tests the effect of a given lambda object.
+ * Check the size of a collection.
  */
-interface Effect : Expr
-
-infix fun <T : Effect> (() -> Any?).does(op: StateExpr<T>) =
-        BoundExpr(op, Value(this)).inState<T>()
+object Size :
+        Relation,
+        StateExpr<WithHasAndOf>,
+        FunExpr("Size", untyped { a: Any, s: Int -> a.asIterable.count() == s })

@@ -13,18 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package straightway.testing.flow
 
-import straightway.expr.BoundExpr
-import straightway.expr.Expr
+import straightway.expr.FunExpr
 import straightway.expr.StateExpr
-import straightway.expr.Value
-import straightway.expr.inState
 
 /**
- * An expression which tests the effect of a given lambda object.
+ * Check is a collection is empty.
  */
-interface Effect : Expr
-
-infix fun <T : Effect> (() -> Any?).does(op: StateExpr<T>) =
-        BoundExpr(op, Value(this)).inState<T>()
+object Empty :
+        Relation,
+        StateExpr<WithHas>,
+        FunExpr("Empty", { a: Any? -> !a.asIterable.any() })

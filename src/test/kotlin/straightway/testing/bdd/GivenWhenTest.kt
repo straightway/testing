@@ -18,7 +18,7 @@ package straightway.testing.bdd
 import org.junit.jupiter.api.Test
 import straightway.testing.flow.Same
 import straightway.testing.flow.as_
-import straightway.testing.flow.equal
+import straightway.testing.flow.Equal
 import straightway.testing.flow.expect
 import straightway.testing.flow.is_
 import straightway.testing.flow.to_
@@ -45,6 +45,6 @@ class GivenWhenTest {
     fun `then passes the when result`() {
         val context = Any()
         val sut = GivenWhen(context, WhenResult("Hello"))
-        sut.then { expect(it.result is_ equal to_ "Hello") }
+        sut.then { expect(it.result is_ Equal to_ "Hello") }
     }
 }

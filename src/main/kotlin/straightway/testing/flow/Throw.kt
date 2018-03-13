@@ -13,18 +13,33 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package straightway.testing.flow
 
 import straightway.expr.BoundExpr
-import straightway.expr.Expr
+import straightway.expr.FunExpr
 import straightway.expr.StateExpr
 import straightway.expr.Value
 import straightway.expr.inState
+import straightway.expr.untyped
+import kotlin.reflect.KClass
 
 /**
- * An expression which tests the effect of a given lambda object.
+ * Operator checking if the argument is a code block throwing an exception.
  */
-interface Effect : Expr
+@Suppress("TooGenericExceptionCaught")
+object Throw :
+        StateExpr<Effect>,
+        FunExpr(
+                "thrown by",
+                untyped { exception: KClass<*>, action: () -> Unit ->
+                    try {
+                        action(); false
+                    } catch (e: Throwable) {
+                        exception.isInstance(e)
+                    }
+                }) {
 
-infix fun <T : Effect> (() -> Any?).does(op: StateExpr<T>) =
-        BoundExpr(op, Value(this)).inState<T>()
+    val exception = BoundExpr(this, Value(Throwable::class)).inState<Effect>()
+    inline fun <reified T : Throwable> type() = BoundExpr(this, Value(T::class)).inState<Effect>()
+}

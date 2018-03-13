@@ -18,38 +18,45 @@ package straightway.testing.flow
 import org.junit.jupiter.api.Test
 import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
+import straightway.testing.bdd.Given
 
-class `Test ContainerCheck has Elements` {
+class TestValues {
 
     @Test
     fun `empty collection has not elements`() =
-            assertFails { expect(arrayOf<Int>() has Elements(2)) }
+            assertFails { expect(arrayOf<Int>() has Values(2)) }
 
     @Test
     fun `single element collection with searched element succeeds`() =
-            assertDoesNotThrow { expect(arrayOf(2) has Elements(2)) }
+            assertDoesNotThrow { expect(arrayOf(2) has Values(2)) }
 
     @Test
     fun `single element collection without searched element fails`() =
-            assertFails { expect(arrayOf(2) has Elements(3)) }
+            assertFails { expect(arrayOf(2) has Values(3)) }
 
     @Test
     fun `single element collection with one of two searched elements fails`() =
-            assertFails { expect(arrayOf(2) has Elements(2, 3)) }
+            assertFails { expect(arrayOf(2) has Values(2, 3)) }
 
     @Test
     fun `two element collection with both searched elements succeeds`() =
-            assertDoesNotThrow { expect(arrayOf(3, 2) has Elements(2, 3)) }
+            assertDoesNotThrow { expect(arrayOf(3, 2) has Values(2, 3)) }
 
     @Test
     fun `three element collection with both searched elements succeeds`() =
-            assertDoesNotThrow { expect(arrayOf(5, 3, 2) has Elements(2, 3)) }
+            assertDoesNotThrow { expect(arrayOf(5, 3, 2) has Values(2, 3)) }
 
     @Test
     fun `works with List`() =
-            assertDoesNotThrow { expect(listOf(2) has Elements(2)) }
+            assertDoesNotThrow { expect(listOf(2) has Values(2)) }
 
     @Test
     fun `works with String`() =
-            assertDoesNotThrow { expect("Hello World" has Elements('l', 'W')) }
+            assertDoesNotThrow { expect("Hello World" has Values('l', 'W')) }
+
+    @Test
+    fun `toString contains checked references`() =
+            Given { Values(1, 2, 3) } when_ { toString() } then {
+                expect(it.result is_ Equal to_ "Values[1, 2, 3]")
+            }
 }
