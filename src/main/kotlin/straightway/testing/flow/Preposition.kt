@@ -20,10 +20,8 @@ import straightway.expr.BoundExpr
 import straightway.expr.StateExpr
 import straightway.expr.Value
 
-@Suppress("FunctionNaming")
 infix fun StateExpr<WithTo>.to_(other: Any) = BoundExpr(this, Value(other))
 
-@Suppress("FunctionNaming")
 infix fun StateExpr<WithAs>.as_(other: Any) = BoundExpr(this, Value(other))
 
 infix fun StateExpr<WithThan>.than(other: Any) = BoundExpr(this, Value(other))

@@ -55,4 +55,18 @@ class GivenTest {
         val givenWhen = Given { context }.when_ { "Hello" }
         expect(givenWhen.result.result is_ Equal to_ "Hello")
     }
+
+    @Test
+    fun `given creates a new given object`() {
+        val given = Given { 123 }
+        val newGiven = given andGiven { it.toString() }
+        expect(newGiven.context is_ Equal to_ "123")
+    }
+
+    @Test
+    fun `while_ updates the given object`() {
+        val given = Given { object { var num = 82 } }
+        val updated = given while_ { ++num }
+        expect(updated.context.num is_ Equal to_ 83)
+    }
 }

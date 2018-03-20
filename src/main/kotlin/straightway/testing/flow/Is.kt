@@ -20,10 +20,8 @@ import straightway.expr.StateExpr
 import straightway.expr.Value
 import straightway.expr.inState
 
-@Suppress("FunctionNaming")
 infix fun <T : Relation> Any?.is_(op: StateExpr<T>) =
         BoundExpr(op, Value(this)).inState<T>()
 
-@Suppress("FunctionNaming")
 infix fun <T : Comparable<T>, TRel : Relation> T.is_(op: StateExpr<TRel>) =
         BoundExpr(op, Value(this)).inState<TRel>()
