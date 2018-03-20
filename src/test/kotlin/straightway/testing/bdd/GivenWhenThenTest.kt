@@ -49,6 +49,15 @@ class GivenWhenThenTest {
                 throw Panic(this)
             } then {
                 expect({ it.result } does Throw.type<Panic>())
+            }
+
+    @Test
+    fun `exception in when_ can be evaluated in then using exception`() =
+            Given {
+                "Aaaaah!"
+            } when_ {
+                throw Panic(this)
+            } then {
                 expect((it.exception as Panic).state is_ Equal to_ "Aaaaah!")
             }
 
@@ -61,6 +70,12 @@ class GivenWhenThenTest {
             } then {
                 expect({ it.nullableResult } does Throw.type<Panic>())
             }
+
+    @Test
+    fun `exception in when leads to failing test if not checked`() =
+           expect({
+               Given {} when_ { throw Panic("Aaaaah!") } then {}
+           } does Throw.type<Panic>())
 
     @Test
     fun `exception is null if no exception was thrown`() =

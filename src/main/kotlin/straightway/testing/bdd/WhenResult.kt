@@ -20,13 +20,28 @@ package straightway.testing.bdd
  */
 data class WhenResult<TResult> private constructor(
         private val _result: TResult?,
-        val exception: Throwable?
+        private val _exception: Throwable?
 ) {
     constructor(result: TResult) : this(result, null)
 
-    val result: TResult get() = _result ?: throw exception!!
+    val exception: Throwable? get() {
+        _isExceptionIgnored = false
+        return _exception
+    }
 
-    val nullableResult: TResult? get() = if (exception != null) throw exception else _result
+    val hasIgnoredException get() = _exception != null && _isExceptionIgnored
+
+    val result: TResult get() {
+        _isExceptionIgnored = false
+        return _result ?: throw _exception!!
+    }
+
+    val nullableResult: TResult? get() {
+        _isExceptionIgnored = false
+        return if (_exception != null) throw _exception else _result
+    }
+
+    private var _isExceptionIgnored = true
 
     companion object {
         fun <TResult> threw(exception: Throwable) = WhenResult<TResult>(null, exception)

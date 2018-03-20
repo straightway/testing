@@ -22,5 +22,8 @@ class GivenWhen<TGiven, TResult>(
         val given: TGiven,
         val result: WhenResult<TResult>
 ) {
-    infix fun then(op: TGiven.(WhenResult<TResult>) -> Unit) = given.op(result)
+    infix fun then(op: TGiven.(WhenResult<TResult>) -> Unit) {
+        given.op(result)
+        if (result.hasIgnoredException) throw result.exception as Throwable
+    }
 }
