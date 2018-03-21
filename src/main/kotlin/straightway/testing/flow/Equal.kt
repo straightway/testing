@@ -16,7 +16,13 @@
 
 package straightway.testing.flow
 
+import kotlin.collections.contentEquals
+
 /**
  * Relation checking if two objects are equal.
  */
-object Equal : EqualBase({ a, b -> a == b })
+object Equal : EqualBase(::areEqual)
+
+private fun areEqual(a: Any?, b: Any?) =
+        if (a is Array<*> && b is Array<*>) a contentEquals b
+        else a == b

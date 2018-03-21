@@ -77,4 +77,9 @@ class `Test relation is_ equal to` {
                         is_ Not - EqualWithin(Duration.ofDays(2))
                         to_ LocalDateTime.of(0, 1, 3, 0, 0, 0))
     }
+
+    @Test
+    fun `equal arrays`() = assertDoesNotThrow {
+        expect(arrayOf<Int>() is_ Equal to_ arrayOf<Int>())
+    }
 }
