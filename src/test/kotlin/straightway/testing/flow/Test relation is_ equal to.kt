@@ -82,4 +82,29 @@ class `Test relation is_ equal to` {
     fun `equal arrays`() = assertDoesNotThrow {
         expect(arrayOf<Int>() is_ Equal to_ arrayOf<Int>())
     }
+
+    @Test
+    fun `not equal iterables of different collection types`() = assertDoesNotThrow {
+        expect(listOf<Int>() is_ Not - Equal to_ setOf<Int>())
+    }
+
+    @Test
+    fun `not equal iterable and array`() = assertDoesNotThrow {
+        expect(listOf<Int>() is_ Not - Equal to_ arrayOf<Int>())
+    }
+
+    @Test
+    fun `not equal array and iterable`() = assertDoesNotThrow {
+        expect(arrayOf<Int>() is_ Not - Equal to_ listOf<Int>())
+    }
+
+    @Test
+    fun `array and Values item`() = assertDoesNotThrow {
+        expect(arrayOf(1, 2, 3) is_ Equal to_ Values(1, 2, 3))
+    }
+
+    @Test
+    fun `iterable and Values item`() = assertDoesNotThrow {
+        expect(listOf(1, 2, 3) is_ Equal to_ Values(1, 2, 3))
+    }
 }

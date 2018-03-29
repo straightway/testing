@@ -23,7 +23,7 @@ import straightway.expr.StateExpr
  * Unary operator checking if its argument is a container and contains
  * a number of specified objects by value.
  */
-class Values private constructor(private val elements: Array<*>) :
+class Values private constructor(val elements: Array<*>) :
         Relation,
         StateExpr<WithHas>,
         FunExpr(

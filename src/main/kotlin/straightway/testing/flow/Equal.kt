@@ -24,5 +24,9 @@ import kotlin.collections.contentEquals
 object Equal : EqualBase(::areEqual)
 
 private fun areEqual(a: Any?, b: Any?) =
-        if (a is Array<*> && b is Array<*>) a contentEquals b
-        else a == b
+        when {
+            a is Array<*> && b is Array<*> -> a contentEquals b
+            a is Array<*> && b is Values -> a contentEquals b.elements
+            a is Iterable<*> && b is Values -> a.toList() == b.elements.toList()
+            else -> a == b
+        }
