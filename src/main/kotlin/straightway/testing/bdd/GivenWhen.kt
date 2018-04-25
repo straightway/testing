@@ -22,8 +22,19 @@ class GivenWhen<TGiven, TResult>(
         val given: TGiven,
         val result: WhenResult<TResult>
 ) {
-    infix fun then(op: TGiven.(WhenResult<TResult>) -> Unit) {
-        given.op(result)
-        if (result.hasIgnoredException) throw result.exception as Throwable
+    @Suppress("TooGenericExceptionCaught")
+    infix fun then(op: TGiven.(WhenResult<TResult>) -> Unit) =
+        try {
+            val givenResult = given.op(result)
+            throwIgnoredResultException()
+            givenResult
+        } catch (e: Throwable) {
+            throwIgnoredResultException()
+            throw e
+        }
+
+    private fun throwIgnoredResultException() {
+        if (result.hasIgnoredException)
+            throw result.exception as Throwable
     }
 }

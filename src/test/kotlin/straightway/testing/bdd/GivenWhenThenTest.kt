@@ -74,8 +74,21 @@ class GivenWhenThenTest {
     @Test
     fun `exception in when leads to failing test if not checked`() =
            expect({
-               Given {} when_ { throw Panic("Aaaaah!") } then {}
+               Given {} when_ { throw Panic("Aah!") } then {}
            } does Throw.type<Panic>())
+
+    @Test
+    @Suppress("ThrowsCount")
+    fun `exception in when is not hidden by another exception in then`() =
+            expect({
+                Given {} when_ { throw Panic("Aah!") } then { throw CloneNotSupportedException() }
+            } does Throw.type<Panic>())
+
+    @Test
+    fun `exception in then is not swallowed`() =
+            expect({
+                Given {} when_ {} then { throw Panic("Aaaaah!") }
+            } does Throw.type<Panic>())
 
     @Test
     fun `exception is null if no exception was thrown`() =
