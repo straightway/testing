@@ -22,7 +22,7 @@ import straightway.testing.assertFails
 import java.time.Duration
 import java.time.LocalDateTime
 
-class `Test relation is_ equal to` {
+class `Test relation is equal to` {
 
     @Test
     fun passes() = assertDoesNotThrow { expect(1 is_ Equal to_ 1) }
@@ -106,5 +106,11 @@ class `Test relation is_ equal to` {
     @Test
     fun `iterable and Values item`() = assertDoesNotThrow {
         expect(listOf(1, 2, 3) is_ Equal to_ Values(1, 2, 3))
+    }
+
+    @Test
+    fun `map and Values item`() = assertDoesNotThrow {
+        expect(mapOf(Pair("A", 1), Pair("B", 2)) is_ Equal to_
+                       Values(Pair("A", 1), Pair("B", 2)))
     }
 }
