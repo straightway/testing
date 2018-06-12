@@ -22,6 +22,7 @@ internal val Any?.asIterable get() =
             is Iterable<*> -> this
             is Array<*> -> this.asList()
             is CharSequence -> this.toList()
+            is Map<*, *> -> this.toList()
             else -> throw AssertionFailedError("Cannot convert $this to_ iterable")
         }
 

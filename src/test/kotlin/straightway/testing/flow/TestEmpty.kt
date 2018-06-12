@@ -75,6 +75,16 @@ class TestEmpty {
             assertFails("Expectation <Not-Empty()> failed") { expect("" is_ Not - Empty) }
 
     @Test
+    fun `succeeds on empty map`() =
+            assertDoesNotThrow { expect(mapOf<String, Any>() is_ Empty) }
+
+    @Test
+    fun `fails on non-empty map`() =
+            assertFails("Expectation <Empty({1=A})> failed") {
+                expect(mapOf(1 to "A") is_ Empty)
+            }
+
+    @Test
     fun `fails for non collections`() =
             assertFails { expect(2 is_ Empty) }
 

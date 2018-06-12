@@ -21,4 +21,5 @@ dependencies {
     compile junit5("api")
     compile straightway('expr')
     compile straightway('error')
+    testCompile mockitoKotlin()
 }

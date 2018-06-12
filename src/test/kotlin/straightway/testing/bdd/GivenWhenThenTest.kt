@@ -15,6 +15,9 @@
  */
 package straightway.testing.bdd
 
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.verify
 import org.junit.jupiter.api.Test
 import straightway.error.Panic
 import straightway.expr.minus
@@ -111,4 +114,33 @@ class GivenWhenThenTest {
             Given {} when_ { null } then {
                 expect({ it.result } does Throw.type<NullPointerException>())
             }
+
+    @Test
+    fun `if given object implements AutoCloseable, it is closed when then block is finished`() {
+        val autoCloseable = mock<AutoCloseable>()
+        Given {
+            autoCloseable
+        } when_ {} then {
+            verify(autoCloseable, never()).close()
+        }
+
+        verify(autoCloseable).close()
+    }
+
+    @Test
+    fun `if given object implements AutoCloseable, it is closed when then block throws`() {
+        val autoCloseable = mock<AutoCloseable>()
+        try {
+            Given {
+                autoCloseable
+            } when_ {} then {
+                verify(autoCloseable, never()).close()
+                throw Panic("Aah!")
+            }
+        } catch (e: Panic) {
+            // Ignorw
+        }
+
+        verify(autoCloseable).close()
+    }
 }
