@@ -28,7 +28,9 @@ class TestEmpty {
 
     @Test
     fun `fails on non empty collection`() =
-            assertFails("Expectation <Empty([1])> failed") { expect(listOf(1) is_ Empty) }
+            assertFails(Regex("Expectation <Empty\\(\\[1]\\)> failed.*")) {
+                expect(listOf(1) is_ Empty)
+            }
 
     @Test
     fun `negation succeeds on non empty collection`() =
@@ -36,7 +38,7 @@ class TestEmpty {
 
     @Test
     fun `negation fails on empty collection`() =
-            assertFails("Expectation <Not-Empty([])> failed") {
+            assertFails(Regex("Expectation <Not-Empty\\(\\[]\\)> failed.*")) {
                 expect(listOf<Int>() is_ Not - Empty)
             }
 
@@ -46,7 +48,9 @@ class TestEmpty {
 
     @Test
     fun `fails on non empty array`() =
-            assertFails("Expectation <Empty([1])> failed") { expect(arrayOf(1) is_ Empty) }
+            assertFails(Regex("Expectation <Empty\\(\\[1]\\)> failed.*")) {
+                expect(arrayOf(1) is_ Empty)
+            }
 
     @Test
     fun `negation succeeds on non empty array`() =
@@ -54,7 +58,7 @@ class TestEmpty {
 
     @Test
     fun `negation fails on empty array`() =
-            assertFails("Expectation <Not-Empty([])> failed") {
+            assertFails(Regex("Expectation <Not-Empty\\(\\[]\\)> failed.*")) {
                 expect(arrayOf<Int>() is_ Not - Empty)
             }
 
@@ -64,7 +68,9 @@ class TestEmpty {
 
     @Test
     fun `fails on non empty string`() =
-            assertFails("Expectation <Empty(Hello)> failed") { expect("Hello" is_ Empty) }
+            assertFails(Regex("Expectation <Empty\\(Hello\\)> failed.*")) {
+                expect("Hello" is_ Empty)
+            }
 
     @Test
     fun `negation succeeds on non empty string`() =
@@ -72,7 +78,9 @@ class TestEmpty {
 
     @Test
     fun `negation fails on empty string`() =
-            assertFails("Expectation <Not-Empty()> failed") { expect("" is_ Not - Empty) }
+            assertFails(Regex("Expectation <Not-Empty..> failed.*")) {
+                expect("" is_ Not - Empty)
+            }
 
     @Test
     fun `succeeds on empty map`() =
@@ -80,7 +88,8 @@ class TestEmpty {
 
     @Test
     fun `fails on non-empty map`() =
-            assertFails("Expectation <Empty({1=A})> failed") {
+            //assertFails(Regex("Expectation <Empty({1=A})> failed")) {
+            assertFails(Regex("Expectation <Empty\\(\\{1=A}\\)> failed.*")) {
                 expect(mapOf(1 to "A") is_ Empty)
             }
 

@@ -15,9 +15,7 @@
  */
 package straightway.testing
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 import org.opentest4j.AssertionFailedError
 import straightway.error.Panic
@@ -38,29 +36,15 @@ fun assertPanics(expectedState: Any, action: () -> Unit) {
     }
 }
 
-inline fun <reified TException : Throwable> assertThrows(noinline action: () -> Unit) {
-    Assertions.assertThrows<TException>(TException::class.java, action)
-}
-
-@Suppress("TooGenericExceptionCaught", "InstanceOfCheckForException")
-inline fun <reified TException : Throwable> assertThrows(
-        expectedMessage: String,
-        noinline action: () -> Unit
-) {
-    try {
-        action()
-        fail<Unit>("Action $action did not throw an exception")
-    } catch (e: Throwable) {
-        assertTrue(e is TException, "Action $action threw unexpected exception $e")
-        assertEquals(expectedMessage, e.message)
-    }
-}
-
 fun assertFails(action: () -> Unit) {
     assertThrows<AssertionFailedError>(action)
 }
 
 fun assertFails(expectedMessage: String, action: () -> Unit) {
+    assertThrows<AssertionFailedError>(expectedMessage, action)
+}
+
+fun assertFails(expectedMessage: Regex, action: () -> Unit) {
     assertThrows<AssertionFailedError>(expectedMessage, action)
 }
 

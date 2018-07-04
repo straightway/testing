@@ -18,11 +18,12 @@ package straightway.testing
 import org.junit.jupiter.api.Test
 import java.lang.NullPointerException
 import java.security.InvalidKeyException
+import java.security.InvalidParameterException
 
 class AssertTestAssertThrowsWithExpectedMessage {
 
     @Test
-    fun `AssertThrows passes with expected exception, containing type and message`() =
+    fun `passes with expected exception and specified message`() =
             assertDoesNotThrow {
                 assertThrows<InvalidKeyException>("Expected") {
                     throw InvalidKeyException("Expected")
@@ -30,7 +31,37 @@ class AssertTestAssertThrowsWithExpectedMessage {
             }
 
     @Test
-    fun fails_withUnexpectedExceptionMessage() =
+    fun `passes with expected exception and matching message`() =
+            assertDoesNotThrow {
+                assertThrows<InvalidKeyException>(Regex("Expecte.")) {
+                    throw InvalidKeyException("Expected")
+                }
+            }
+
+    @Test
+    fun `fails with unexpected exception and matching message`() =
+            assertFails {
+                assertThrows<InvalidKeyException>(Regex("Expecte.")) {
+                    throw InvalidParameterException("Expected")
+                }
+            }
+
+    @Test
+    fun `fails with expected exception and not matching message`() =
+            assertFails {
+                assertThrows<InvalidKeyException>(Regex("Expecte.")) {
+                    throw InvalidKeyException("Expected.")
+                }
+            }
+
+    @Test
+    fun `fails without exception and message regex`() =
+            assertFails {
+                assertThrows<InvalidKeyException>(Regex("Expecte.")) {}
+            }
+
+    @Test
+    fun `fails with unexpected exception message`() =
             assertFails {
                 assertThrows<InvalidKeyException>("Expected") {
                     throw InvalidKeyException("Unexpected")
@@ -38,7 +69,7 @@ class AssertTestAssertThrowsWithExpectedMessage {
             }
 
     @Test
-    fun fails_withExceptionOfWrongType() =
+    fun `fails with exception of wrong type`() =
             assertFails {
                 assertThrows<NullPointerException>("Expected") {
                     throw InvalidKeyException("Expected")
@@ -46,7 +77,7 @@ class AssertTestAssertThrowsWithExpectedMessage {
             }
 
     @Test
-    fun fails_withoutException() =
+    fun `fails without exception`() =
             assertFails {
                 assertThrows<NullPointerException>("Expected") {}
             }

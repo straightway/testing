@@ -22,7 +22,7 @@ import org.opentest4j.AssertionFailedError
 class AssertTestAssertFailsWithExpectedMessage {
 
     @Test
-    fun passes_ifActionFailsWithCorrectMessage() =
+    fun `passes if action fails with correct message`() =
             assertDoesNotThrow {
                 assertFails("Expected message") {
                     Assertions.fail("Expected message")
@@ -30,14 +30,34 @@ class AssertTestAssertFailsWithExpectedMessage {
             }
 
     @Test
-    fun fails_withExpectedMessage_ifActionDoesNotFail() =
+    fun `fails with expected message, if action does not fail`() =
             assertThrows<AssertionFailedError> {
                 assertFails("Expected message") {}
             }
 
     @Test
-    fun fails_ifActionFailsWithWrongMessage() =
+    fun `fails if action fails with wrong message`() =
             assertThrows<AssertionFailedError> {
                 assertFails("Expected message") { Assertions.fail("Wrong message") }
+            }
+
+    @Test
+    fun `passes if action fails with matching message`() =
+            assertDoesNotThrow {
+                assertFails(Regex("Expected.*")) {
+                    Assertions.fail("Expected message")
+                }
+            }
+
+    @Test
+    fun `fails with matching message, if action does not fail`() =
+            assertThrows<AssertionFailedError> {
+                assertFails(Regex("Expected.*")) {}
+            }
+
+    @Test
+    fun `fails if action fails with not matching message`() =
+            assertThrows<AssertionFailedError> {
+                assertFails(Regex("Expected.*")) { Assertions.fail("Wrong message") }
             }
 }

@@ -53,16 +53,16 @@ class EffectTestThrow {
     @Test
     fun fails_withMeaningfulMessage() =
             assertFails(
-                    "Expectation <class kotlin.Throwable thrown by fun throwNothing(): " +
-                            "kotlin.Unit> failed") {
+                    Regex("Expectation <class kotlin.Throwable thrown by fun throwNothing..: " +
+                          "kotlin.Unit> failed.*")) {
                 expect(::throwNothing does Throw.exception)
             }
 
     @Test
     fun negated_fails_withMeaningfulMessage() =
             assertFails(
-                    "Expectation <class kotlin.Throwable Not-thrown by fun panic(): " +
-                            "kotlin.Unit> failed") {
+                    Regex("Expectation <class kotlin.Throwable Not-thrown by fun panic..: " +
+                          "kotlin.Unit> failed.*")) {
                 expect(::panic does Not - Throw.exception)
             }
 }

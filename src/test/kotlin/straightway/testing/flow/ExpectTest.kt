@@ -41,11 +41,15 @@ class ExpectTest {
 
     @Test
     fun failure_singleDyadicOp_withMeaningfulExplanation() =
-            assertFails("Expectation <1 Greater 2> failed", { expect(1 is_ Greater than 2) })
+            assertFails(Regex("Expectation <1 Greater 2> failed.*")) {
+                expect(1 is_ Greater than 2)
+            }
 
     @Test
     fun failure_monadicWithDyadicOp_withMeaningfulExplanation() =
-            assertFails("Expectation <1 Not-Equal 1> failed") { expect(1 is_ Not - Equal to_ 1) }
+            assertFails(Regex("Expectation <1 Not-Equal 1> failed.*")) {
+                expect(1 is_ Not - Equal to_ 1)
+            }
 
     @Test
     fun failure_notFullyBoundExpression_withMeaningfulExplanation() =
@@ -69,5 +73,5 @@ class ExpectTest {
 
     @Test
     fun failure_directlyUsingBoolean_withExplanation() =
-            assertFails("Explanation") { expect(false) { "Explanation" } }
+            assertFails(Regex("Explanation.*")) { expect(false) { "Explanation" } }
 }
