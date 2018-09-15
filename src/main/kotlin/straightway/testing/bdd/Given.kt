@@ -33,7 +33,7 @@ class Given<TContext> private constructor(val context: TContext) {
 
     constructor(initializer: () -> TContext) : this(initializer())
 
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "FunctionNaming")
     infix fun <TResult> when_(codeBlock: TContext.() -> TResult): GivenWhen<TContext, TResult> {
         return try {
             GivenWhen(context, WhenResult(context.codeBlock()))
@@ -45,6 +45,7 @@ class Given<TContext> private constructor(val context: TContext) {
     infix fun <TNewContext> andGiven(codeBlock: (TContext) -> TNewContext) =
             Given { codeBlock(context) }
 
+    @Suppress("FunctionNaming")
     infix fun while_(codeBlock: TContext.() -> Unit): Given<TContext> {
         context.codeBlock()
         return this

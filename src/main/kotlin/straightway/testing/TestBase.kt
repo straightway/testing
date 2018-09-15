@@ -22,12 +22,12 @@ import org.junit.jupiter.api.AfterEach
  */
 open class TestBase<T> {
 
-    //<editor-fold desc="Setup/tear down">
+    // <editor-fold desc="Setup/tear down">
     @AfterEach
     open fun tearDown() {
         nullableSut = null
     }
-    //</editor-fold>
+    // </editor-fold>
 
     protected var sut: T
         get() = nullableSut!!
@@ -35,7 +35,7 @@ open class TestBase<T> {
             nullableSut = value
         }
 
-    //<editor-fold desc="Private">
+    // <editor-fold desc="Private">
     private var nullableSut: T? = null
-    //</editor-fold>
+    // </editor-fold>
 }

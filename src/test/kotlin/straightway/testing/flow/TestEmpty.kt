@@ -88,7 +88,6 @@ class TestEmpty {
 
     @Test
     fun `fails on non-empty map`() =
-            //assertFails(Regex("Expectation <Empty({1=A})> failed")) {
             assertFails(Regex("Expectation <Empty\\(\\{1=A}\\)> failed.*")) {
                 expect(mapOf(1 to "A") is_ Empty)
             }
