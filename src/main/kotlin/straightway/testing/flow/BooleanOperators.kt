@@ -23,11 +23,23 @@ import straightway.expr.Expr
  * the logical conjunction of their boolean results.
  */
 infix fun Expr.and(other: Expr): Expr =
-        DistributedExpr("and", this, other) { left(*it) as Boolean && right(*it) as Boolean }
+        DistributedExpr("and", this, other) {
+            val leftResult = left(*it) as AssertionResult
+            val rightResult = right(*it) as AssertionResult
+            AssertionResult(
+                    "[$leftResult and $rightResult]",
+                    leftResult.isSuccessful && rightResult.isSuccessful)
+        }
 
 /**
  * Operator which distributes its arguments to the left and right expressions and yields
  * the logical disjunction of their boolean results.
  */
 infix fun Expr.or(other: Expr): Expr =
-        DistributedExpr("or", this, other) { left(*it) as Boolean || right(*it) as Boolean }
+        DistributedExpr("or", this, other) {
+            val leftResult = left(*it) as AssertionResult
+            val rightResult = right(*it) as AssertionResult
+            AssertionResult(
+                    "[$leftResult or $rightResult]",
+                    leftResult.isSuccessful || rightResult.isSuccessful)
+        }

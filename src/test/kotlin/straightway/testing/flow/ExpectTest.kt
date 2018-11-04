@@ -24,30 +24,30 @@ import straightway.testing.assertFails
 class ExpectTest {
 
     @Test
-    fun booleanExpression_false_isFailure() =
-            assertFails { expect(Value(false)) }
+    fun assertionResultExpression_notSuccessful_isFailure() =
+            assertFails { expect(Value(AssertionResult("Explanation", false))) }
 
     @Test
-    fun nonBooleanExpression_isFailure() =
+    fun nonAssertionResultExpression_isFailure() =
             assertFails(
-                    "Expectation <1> failed (java.lang.ClassCastException: " +
-                            "java.lang.Integer cannot be cast to java.lang.Boolean)") {
+                    "Expectation <1> failed (java.lang.ClassCastException: java.lang.Integer " +
+                            "cannot be cast to straightway.testing.flow.AssertionResult)") {
                 expect(Value(1))
             }
 
     @Test
-    fun booleanExpression_true_isSuccess() =
-            assertDoesNotThrow { expect(Value(true)) }
+    fun assertionResultExpression_notSuccessful_isSuccess() =
+            assertDoesNotThrow { expect(Value(AssertionResult("Explanation", true))) }
 
     @Test
     fun failure_singleDyadicOp_withMeaningfulExplanation() =
-            assertFails(Regex("Expectation <1 Greater 2> failed.*")) {
+            assertFails(Regex("Expectation 1 > 2 failed.*")) {
                 expect(1 is_ Greater than 2)
             }
 
     @Test
     fun failure_monadicWithDyadicOp_withMeaningfulExplanation() =
-            assertFails(Regex("Expectation <1 Not-Equal 1> failed.*")) {
+            assertFails(Regex(".*Expectation not 1 == 1 failed.*")) {
                 expect(1 is_ Not - Equal to_ 1)
             }
 
@@ -57,6 +57,12 @@ class ExpectTest {
                     "Expectation <1 Greater ?> failed " +
                             "(Invalid number of parameters. Expected: 2, got: 1)") {
                 expect(1 is_ Greater)
+            }
+
+    @Test
+    fun `failure with AssertionResult expression does not show Expected and Actual in message`() =
+            assertFails("Expectation Explanation failed.") {
+                expect(Value(AssertionResult("Explanation", false)))
             }
 
     @Test

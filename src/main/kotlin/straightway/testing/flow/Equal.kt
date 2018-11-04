@@ -21,7 +21,7 @@ import kotlin.collections.contentEquals
 /**
  * Relation checking if two objects are equal.
  */
-object Equal : EqualBase(::areEqual)
+object Equal : EqualBase({ a, b -> AssertionResult("$a == $b", areEqual(a, b)) })
 
 @Suppress("ComplexMethod")
 private fun areEqual(a: Any?, b: Any?) =

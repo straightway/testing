@@ -24,4 +24,6 @@ import straightway.expr.untyped
  * Operator which logically negates its argument.
  */
 object Not :
-    CombinableExpr, FunExpr("Not", untyped<Boolean, Boolean> { !it })
+    CombinableExpr, FunExpr("Not", untyped<AssertionResult, AssertionResult> {
+        AssertionResult("not ${it.explanation}", !it.isSuccessful)
+    })

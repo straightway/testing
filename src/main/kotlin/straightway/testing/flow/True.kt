@@ -23,4 +23,6 @@ import straightway.expr.StateExpr
  * Unary relation checking if an object is boolean true.
  */
 object True
-    : Relation, StateExpr<Unary>, FunExpr("True", { a -> a as Boolean })
+    : Relation, StateExpr<Unary>, FunExpr("True", { a ->
+        AssertionResult("$a is true", a as Boolean)
+    })

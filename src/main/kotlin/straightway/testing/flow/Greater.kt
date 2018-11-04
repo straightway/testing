@@ -23,4 +23,6 @@ import straightway.expr.StateExpr
  * Relation checking if the first object is greater than the second one.
  */
 object Greater
-    : Relation, StateExpr<WithThan>, FunExpr("Greater", { a, b -> 0 < a!!.untypedCompareTo(b!!) })
+    : Relation, StateExpr<WithThan>, FunExpr("Greater", { a, b ->
+    AssertionResult("$a > $b", 0 < a!!.untypedCompareTo(b!!))
+})

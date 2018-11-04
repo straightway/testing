@@ -22,5 +22,5 @@ import straightway.expr.StateExpr
 /**
  * Base class for relations determining if two values are equal.
  */
-abstract class EqualBase(predicate: (Any?, Any?) -> Boolean) :
+abstract class EqualBase(predicate: (Any?, Any?) -> AssertionResult) :
         Relation, StateExpr<WithTo>, FunExpr("Equal", predicate)

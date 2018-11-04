@@ -23,4 +23,6 @@ import straightway.expr.StateExpr
  * Relation checking if the first object is less than the second one.
  */
 object Less
-    : Relation, StateExpr<WithThan>, FunExpr("Less", { a, b -> a!!.untypedCompareTo(b!!) < 0 })
+    : Relation, StateExpr<WithThan>, FunExpr("Less", { a, b ->
+        AssertionResult("$a < $b", a!!.untypedCompareTo(b!!) < 0)
+    })

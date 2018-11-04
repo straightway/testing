@@ -13,15 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package straightway.testing.flow
 
-import straightway.expr.Expr
-import straightway.expr.FunExpr
-import straightway.expr.StateExpr
-
 /**
- * Unary operator checking if its argument is null.
+ * The result of an assertion, including an explanation string of the result.
  */
-object Null : Expr, StateExpr<Unary>, FunExpr("Null", { x: Any? ->
-    AssertionResult("$x is null", x === null) })
+data class AssertionResult(
+        val explanation: String,
+        val isSuccessful: Boolean) {
+
+    override fun toString() = "${if (isSuccessful) "Success" else "Failure"}: $explanation"
+
+    companion object {
+        fun success(explanation: String) = AssertionResult(explanation, true)
+        fun failure(explanation: String) = AssertionResult(explanation, false)
+    }
+}

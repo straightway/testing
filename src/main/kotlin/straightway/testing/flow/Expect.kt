@@ -27,9 +27,7 @@ import straightway.expr.Expr
 @Suppress("TooGenericExceptionCaught")
 fun expect(condition: Expr) {
     try {
-        assertTrue(condition() as Boolean) {
-            "Expectation <${ExpressionVisualizer(condition).string}> failed"
-        }
+        check(condition)
     } catch (e: AssertionFailedError) {
         throw e
     } catch (e: Panic) {
@@ -49,3 +47,8 @@ fun expect(condition: Boolean) = assertTrue(condition)
  */
 fun expect(condition: Boolean, lazyExplanation: () -> String) =
         assertTrue(condition, lazyExplanation)
+
+private fun check(condition: Expr) =
+        with(condition() as AssertionResult) {
+            if (!isSuccessful) fail<Unit> { "Expectation $explanation failed." }
+        }

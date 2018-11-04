@@ -16,6 +16,7 @@
 package straightway.testing
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.fail
 
 inline fun <reified TException : Throwable> assertThrows(noinline action: () -> Unit) {
     Assertions.assertThrows<TException>(TException::class.java, action)
@@ -28,10 +29,13 @@ inline fun <reified TException : Throwable> assertThrows(
 ) {
     try {
         action()
-        Assertions.fail<Unit>("Action $action did not throw an exception")
+        fail("Action $action did not throw an exception")
     } catch (e: Throwable) {
-        Assertions.assertTrue(e is TException, "Action $action threw unexpected exception $e")
-        Assertions.assertTrue(expectedMessageRegex.matches(e.message!!))
+        if (!(e is TException))
+            fail("Action $action threw unexpected exception $e")
+        if (!(expectedMessageRegex.matches(e.message!!)))
+            fail("Unexpected failure message: ${e.message} " +
+                    "(expected pattern: $expectedMessageRegex)")
     }
 }
 
@@ -42,9 +46,10 @@ inline fun <reified TException : Throwable> assertThrows(
 ) {
     try {
         action()
-        Assertions.fail<Unit>("Action $action did not throw an exception")
+        fail("Action $action did not throw an exception")
     } catch (e: Throwable) {
-        Assertions.assertTrue(e is TException, "Action $action threw unexpected exception $e")
+        if (!(e is TException))
+            fail("Action $action threw unexpected exception $e")
         Assertions.assertEquals(expectedMessage, e.message)
     }
 }

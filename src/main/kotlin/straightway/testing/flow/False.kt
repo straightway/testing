@@ -23,4 +23,6 @@ import straightway.expr.StateExpr
  * Unary relation checking if an object is boolean false.
  */
 object False
-    : Relation, StateExpr<Unary>, FunExpr("False", { a -> !(a as Boolean) })
+    : Relation, StateExpr<Unary>, FunExpr("False", { a ->
+        AssertionResult("$a is false", !(a as Boolean))
+    })

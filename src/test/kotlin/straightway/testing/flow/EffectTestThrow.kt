@@ -20,6 +20,7 @@ import straightway.error.Panic
 import straightway.expr.minus
 import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
+import java.io.InvalidClassException
 
 class EffectTestThrow {
     @Test
@@ -53,16 +54,22 @@ class EffectTestThrow {
     @Test
     fun fails_withMeaningfulMessage() =
             assertFails(
-                    Regex("Expectation <class kotlin.Throwable thrown by fun throwNothing..: " +
-                          "kotlin.Unit> failed.*")) {
+                    Regex("Expectation class kotlin.Throwable thrown, but nothing thrown.*")) {
                 expect(::throwNothing does Throw.exception)
+            }
+
+    @Test
+    fun `fails with different exception and stack trace`() =
+            assertFails(Regex(
+                    ".*stack trace:.*straightway.testing.flow.EffectTestThrowKt.panic.*",
+                    RegexOption.DOT_MATCHES_ALL)) {
+                expect(::panic does Throw.type<InvalidClassException>())
             }
 
     @Test
     fun negated_fails_withMeaningfulMessage() =
             assertFails(
-                    Regex("Expectation <class kotlin.Throwable Not-thrown by fun panic..: " +
-                          "kotlin.Unit> failed.*")) {
+                    Regex("Expectation not exception class kotlin.Throwable thrown failed.*")) {
                 expect(::panic does Not - Throw.exception)
             }
 }

@@ -26,4 +26,6 @@ import straightway.expr.untyped
 object Size :
         Relation,
         StateExpr<WithHasAndOf>,
-        FunExpr("Size", untyped { a: Any, s: Int -> a.asIterable.count() == s })
+        FunExpr("Size", untyped { a: Any, s: Int ->
+            AssertionResult("size of $a == $s", a.asIterable.count() == s)
+        })

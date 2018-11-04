@@ -23,7 +23,9 @@ import java.time.LocalDateTime
  * Relation checking if two objects are equal within a given range.
  */
 class EqualWithin(private val range: Any) :
-        EqualBase({ a: Any?, b: Any? -> range.areEqualWithin(a, b) }) {
+        EqualBase({ a: Any?, b: Any? ->
+            AssertionResult("$a == $b [+/- $range]", range.areEqualWithin(a, b))
+        }) {
 
     companion object {
         fun Any?.areEqualWithin(a: Any?, b: Any?) =

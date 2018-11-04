@@ -30,7 +30,10 @@ class Values private constructor(val elements: Array<*>) :
                 "Values[${elements.joinToString(", ")}]",
                 { a: Any? ->
                     val iterable = a.asIterable
-                    elements.all { iterable.contains(it) }
+                    AssertionResult(
+                            "[${iterable.joinToString(", ")}] " +
+                            "contains all [${elements.joinToString(", ")}] ",
+                            elements.all { iterable.contains(it) })
                 }) {
 
     companion object {

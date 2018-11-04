@@ -34,9 +34,14 @@ object Throw :
                 "thrown by",
                 untyped { exception: KClass<*>, action: () -> Unit ->
                     try {
-                        action(); false
+                        action()
+                        AssertionResult("$exception thrown, but nothing thrown", false)
                     } catch (e: Throwable) {
-                        exception.isInstance(e)
+                        val isCorrectException = exception.isInstance(e)
+                        if (isCorrectException) AssertionResult("exception $exception thrown", true)
+                        else AssertionResult(
+                                "$exception thrown (got: ${e::class}, " +
+                                "stack trace:\n  ${e.stackTrace.joinToString("\n  ")}", false)
                     }
                 }) {
 

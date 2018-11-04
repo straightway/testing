@@ -28,7 +28,7 @@ class TestEmpty {
 
     @Test
     fun `fails on non empty collection`() =
-            assertFails(Regex("Expectation <Empty\\(\\[1]\\)> failed.*")) {
+            assertFails(Regex("Expectation \\[1] is empty failed.*")) {
                 expect(listOf(1) is_ Empty)
             }
 
@@ -38,7 +38,7 @@ class TestEmpty {
 
     @Test
     fun `negation fails on empty collection`() =
-            assertFails(Regex("Expectation <Not-Empty\\(\\[]\\)> failed.*")) {
+            assertFails(Regex("Expectation not \\[\\] is empty failed.*")) {
                 expect(listOf<Int>() is_ Not - Empty)
             }
 
@@ -48,7 +48,7 @@ class TestEmpty {
 
     @Test
     fun `fails on non empty array`() =
-            assertFails(Regex("Expectation <Empty\\(\\[1]\\)> failed.*")) {
+            assertFails(Regex("Expectation \\[1\\] is empty failed.*")) {
                 expect(arrayOf(1) is_ Empty)
             }
 
@@ -58,7 +58,7 @@ class TestEmpty {
 
     @Test
     fun `negation fails on empty array`() =
-            assertFails(Regex("Expectation <Not-Empty\\(\\[]\\)> failed.*")) {
+            assertFails(Regex("Expectation not \\[\\] is empty failed.*")) {
                 expect(arrayOf<Int>() is_ Not - Empty)
             }
 
@@ -68,7 +68,7 @@ class TestEmpty {
 
     @Test
     fun `fails on non empty string`() =
-            assertFails(Regex("Expectation <Empty\\(Hello\\)> failed.*")) {
+            assertFails(Regex("Expectation \"Hello\" is empty failed.*")) {
                 expect("Hello" is_ Empty)
             }
 
@@ -78,7 +78,7 @@ class TestEmpty {
 
     @Test
     fun `negation fails on empty string`() =
-            assertFails(Regex("Expectation <Not-Empty..> failed.*")) {
+            assertFails(Regex("Expectation not \"\" is empty failed.*")) {
                 expect("" is_ Not - Empty)
             }
 
@@ -88,7 +88,7 @@ class TestEmpty {
 
     @Test
     fun `fails on non-empty map`() =
-            assertFails(Regex("Expectation <Empty\\(\\{1=A}\\)> failed.*")) {
+            assertFails(Regex("Expectation \\{1\\=A\\} is empty failed.*")) {
                 expect(mapOf(1 to "A") is_ Empty)
             }
 

@@ -30,7 +30,11 @@ class References private constructor(private val elements: Array<*>) :
                 "References[${elements.joinToString(", ")}]",
                 { a: Any? ->
                     val iterable = a.asIterable
-                    elements.all { element -> iterable.any { it === element } }
+                    AssertionResult(
+                            "[${iterable.joinToString(", ")}] " +
+                            "contains all [${elements.joinToString(", ")}] by reference",
+
+                            elements.all { element -> iterable.any { it === element } })
                 }) {
 
     companion object {

@@ -23,4 +23,6 @@ import straightway.expr.StateExpr
  * Operator checking if the two arguments are equal by reference.
  */
 object Same
-    : Relation, StateExpr<WithAs>, FunExpr("Same", { a, b -> a === b })
+    : Relation, StateExpr<WithAs>, FunExpr("Same", { a, b ->
+        AssertionResult("$a === $b", a === b)
+    })

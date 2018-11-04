@@ -15,6 +15,7 @@
  */
 package straightway.testing.flow
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import straightway.expr.FunExpr
 import straightway.expr.Value
@@ -22,29 +23,53 @@ import straightway.expr.Value
 class BooleanOperatorsTestAnd {
 
     @Test
-    fun isTrueIfBothArgumentsAreTrue() =
-            expect((Value(true) and Value(true))() is_ True)
+    fun `is true if both arguments are boolean true`() =
+            assertEquals(
+                    AssertionResult("[Success: A and Success: B]", true),
+                    (Value(AssertionResult("A", true)) and
+                            Value(AssertionResult("B", true)))())
 
     @Test
     fun isFalseIfFirstArgumentIsFalse() =
-            expect((Value(false) and Value(true))() is_ False)
+            assertEquals(
+                    AssertionResult("[Failure: A and Success: B]", false),
+                    (Value(AssertionResult("A", false)) and
+                            Value(AssertionResult("B", true)))())
 
     @Test
     fun isFalseIfSecondArgumentIsFalse() =
-            expect((Value(true) and Value(false))() is_ False)
+            assertEquals(
+                    AssertionResult("[Success: A and Failure: B]", false),
+                    (Value(AssertionResult("A", true)) and
+                            Value(AssertionResult("B", false)))())
 
     @Test
     fun isFalseIfBothArgumentsAreFalse() =
-            expect((Value(false) and Value(false))() is_ False)
+            assertEquals(
+                    AssertionResult("[Failure: A and Failure: B]", false),
+            (Value(AssertionResult("A", false)) and
+                    Value(AssertionResult("B", false)))())
 
     @Test
     fun passesArgumentsToBothSubExpressions() {
-        val left = FunExpr("left") { a -> expect(a is_ Equal to_ 83); true }
-        val right = FunExpr("right") { a -> expect(a is_ Equal to_ 83); true }
-        expect((left and right)(83) is_ True)
+        val left = FunExpr("left") { a ->
+            expect(a is_ Equal to_ 83)
+            AssertionResult.success("left")
+        }
+        val right = FunExpr("right") { a ->
+            expect(a is_ Equal to_ 83)
+            AssertionResult.success("right")
+        }
+        assertEquals(
+                AssertionResult("[Success: left and Success: right]", true),
+                (left and right)(83)
+        )
     }
 
     @Test
     fun toString_yieldsProperString() =
-            expect((Value(true) and Value(false)).toString() is_ Equal to_ "true and false")
+            assertEquals(
+                    "Success: SuccessExplanation and Failure: FailureExplanation",
+                    (Value(AssertionResult("SuccessExplanation", true)) and
+                            Value(AssertionResult("FailureExplanation", false))).toString())
 }
