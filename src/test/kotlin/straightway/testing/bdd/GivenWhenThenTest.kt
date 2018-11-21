@@ -128,6 +128,7 @@ class GivenWhenThenTest {
     }
 
     @Test
+    @Suppress("SwallowedException")
     fun `if given object implements AutoCloseable, it is closed when then block throws`() {
         val autoCloseable = mock<AutoCloseable>()
         try {
@@ -138,7 +139,7 @@ class GivenWhenThenTest {
                 throw Panic("Aah!")
             }
         } catch (e: Panic) {
-            // Ignorw
+            // Ignore
         }
 
         verify(autoCloseable).close()
