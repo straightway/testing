@@ -30,8 +30,9 @@ class ExpectTest {
     @Test
     fun nonAssertionResultExpression_isFailure() =
             assertFails(
-                    "Expectation <1> failed (java.lang.ClassCastException: java.lang.Integer " +
-                            "cannot be cast to straightway.testing.flow.AssertionResult)") {
+                    Regex(".*Expectation <1> failed.*java.lang.ClassCastException.*" +
+                            "java\\.lang\\.Integer cannot be cast to .*" +
+                            "straightway\\.testing\\.flow\\.AssertionResult.*")) {
                 expect(Value(1))
             }
 
