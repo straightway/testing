@@ -2,7 +2,8 @@
 
 This kotlin library makes it more convenient to write unit tests using JUnit 5 in kotlin.
 It provides a flow syntax interface for expectations (similar to NUnits Expect syntax), which
-is far better readable than the JUnit asserts..
+is far better readable than the JUnit asserts. And it supports behaviour driven development
+style tests (BDD, Given-When-Then schema).
 
 ## Status
 
