@@ -55,6 +55,10 @@ class TestValues {
             assertDoesNotThrow { expect("Hello World" has Values('l', 'W')) }
 
     @Test
+    fun `convert from collection`() =
+            assertDoesNotThrow { expect("Hello World" has listOf('l', 'W').values()) }
+
+    @Test
     fun `toString contains checked references`() =
             Given { Values(1, 2, 3) } when_ { toString() } then {
                 expect(it.result is_ Equal to_ "Values[1, 2, 3]")

@@ -40,3 +40,5 @@ class Values private constructor(val elements: Array<*>) :
         operator fun invoke(vararg elements: Any?) = Values(elements)
     }
 }
+
+inline fun <reified T> Iterable<T>.values() = Values(*this.toList().toTypedArray())
