@@ -23,14 +23,19 @@ import straightway.testing.assertFails
 class RelationTestNull {
 
     @Test
-    fun null_is_null() = assertDoesNotThrow { expect(null is_ Null) }
+    fun `null is null`() = assertDoesNotThrow { expect(null is_ Null) }
 
     @Test
-    fun null_is_not_notnull() = assertFails { expect(null is_ Not - Null) }
+    fun `null is not null fails`() = assertFails { expect(null is_ Not - Null) }
 
     @Test
-    fun notNull_is_not_null() = assertDoesNotThrow { expect(1 is_ Not - Null) }
+    fun `notNull is not null`() = assertDoesNotThrow { expect(1 is_ Not - Null) }
 
     @Test
-    fun notNull_is_notnull() = assertFails { expect(1 is_ Null) }
+    fun `notNull item is null fails`() = assertFails { expect(1 is_ Null) }
+
+    @Test
+    fun `tested item is formatted`() =
+            expect(((arrayOf(1) is_ Null)() as AssertionResult).explanation
+                    is_ Equal to_ "[1] is null")
 }

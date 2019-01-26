@@ -24,7 +24,9 @@ import java.time.LocalDateTime
  */
 class EqualWithin(private val range: Any) :
         EqualBase({ a: Any?, b: Any? ->
-            AssertionResult("$a == $b [+/- $range]", range.areEqualWithin(a, b))
+            AssertionResult(
+                    "${a.formatted()} == ${b.formatted()} [+/- ${range.formatted()}]",
+                    range.areEqualWithin(a, b))
         }) {
 
     companion object {

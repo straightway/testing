@@ -33,4 +33,17 @@ class RelationTestLessThan {
 
     @Test
     fun negated_fails() = assertFails { expect(1 is_ Not - Less than 2) }
+
+    @Test
+    fun `comparison with uncomparable first item is false`() =
+            assertFails { expect(arrayOf(2) is_ Less than 3) }
+
+    @Test
+    fun `comparison with uncomparable second item is false`() =
+            assertFails { expect(2 is_ Less than arrayOf(3)) }
+
+    @Test
+    fun `items are formatted`() =
+            expect(((arrayOf(1) is_ Less than arrayOf(2))() as AssertionResult).explanation
+                    is_ Equal to_ "[1] < [2]")
 }

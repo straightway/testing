@@ -24,5 +24,5 @@ import straightway.expr.StateExpr
  */
 object False
     : Relation, StateExpr<Unary>, FunExpr("False", { a ->
-        AssertionResult("$a is false", !(a as Boolean))
+        AssertionResult("${a.formatted()} is false", (a as? Boolean).let { it != null && !it })
     })

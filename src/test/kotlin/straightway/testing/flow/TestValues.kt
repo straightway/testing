@@ -63,4 +63,13 @@ class TestValues {
             Given { Values(1, 2, 3) } when_ { toString() } then {
                 expect(it.result is_ Equal to_ "Values[1, 2, 3]")
             }
+
+    @Test
+    fun `explanation items are formatted`() =
+            expect((Values(arrayOf(1))(listOf(arrayOf(2))) as AssertionResult).explanation
+                    is_ Equal to_ "[[2]] contains all [[1]]")
+
+    @Test
+    fun `compare items of sub collections`() =
+            expect(listOf(byteArrayOf(1)) has Values(byteArrayOf(1)))
 }

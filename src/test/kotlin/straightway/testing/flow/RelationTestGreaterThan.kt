@@ -37,6 +37,19 @@ class RelationTestGreaterThan {
     @Test
     fun negated_fails() = assertFails { expect(2 is_ Not - Greater than 1) }
 
+    @Test
+    fun `comparison with uncomparable first item is false`() =
+            assertFails { expect(arrayOf(2) is_ Greater than 3) }
+
+    @Test
+    fun `comparison with uncomparable second item is false`() =
+            assertFails { expect(2 is_ Greater than arrayOf(3)) }
+
+    @Test
+    fun `items are formatted`() =
+            expect(((arrayOf(1) is_ Greater than arrayOf(2))() as AssertionResult).explanation
+                    is_ Equal to_ "[1] > [2]")
+
     private object OtherComparable : Comparable<Int> {
         override fun compareTo(other: Int) = other
     }

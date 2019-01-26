@@ -24,5 +24,5 @@ import straightway.expr.StateExpr
  */
 object Same
     : Relation, StateExpr<WithAs>, FunExpr("Same", { a, b ->
-        AssertionResult("$a === $b", a === b)
+        AssertionResult("${a.formatted()} === ${b.formatted()}", a === b)
     })

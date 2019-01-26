@@ -16,19 +16,76 @@
 
 package straightway.testing.flow
 
-import kotlin.collections.contentEquals
-
 /**
  * Relation checking if two objects are equal.
  */
-object Equal : EqualBase({ a, b -> AssertionResult("$a == $b", areEqual(a, b)) })
+object Equal : EqualBase({ a, b ->
+    AssertionResult("${a.formatted()} == ${b.formatted()}", areEqual(a, b))
+})
+
+internal fun areEqual(a: Any?, b: Any?): Boolean {
+    val aa = a.toArray()
+    val ba = b.toArray()
+    return if (aa === null || ba === null) areSingleElementsEqual(a, b)
+           else areArraysEqual(aa, ba)
+}
 
 @Suppress("ComplexMethod")
-private fun areEqual(a: Any?, b: Any?) =
+private fun areSingleElementsEqual(a: Any?, b: Any?): Boolean {
+    return when {
+        a is Pair<*, *> && b is Pair<*, *> ->
+            areEqual(a.first, b.first) && areEqual(a.second, b.second)
+        a is Pair<*, *> && b is Map.Entry<*, *> ->
+            areEqual(a.first, b.key) && areEqual(a.second, b.value)
+        a is Map.Entry<*, *> && b is Pair<*, *> ->
+            areEqual(a.key, b.first) && areEqual(a.key, b.first)
+        a is Set<*> && b !is Set<*> ->
+            isSetEqualToCollection(a, b)
+        a !is Set<*> && b is Set<*> ->
+            isSetEqualToCollection(b, a)
+        a is Set<*> && b is Set<*> ->
+            areSetsEqual(a, b)
+        a is Map<*, *> && b is Map<*, *> ->
+            areSetsEqual(a.entries, b.entries)
+        a is Map<*, *> && b !is Map<*, *> ->
+            isSetEqualToCollection(a.entries, b)
+        a !is Map<*, *> && b is Map<*, *> ->
+            isSetEqualToCollection(b.entries, a)
+        else -> a == b
+    }
+}
+
+private fun isSetEqualToCollection(set: Set<*>, other: Any?): Boolean {
+    val otherArray = other.toArray()
+    return otherArray != null && areSetsEqual(set, otherArray.toList())
+}
+
+private fun areSetsEqual(a: Set<*>, b: Collection<*>) =
+        a.size == b.size && a.all { aItem -> b.any { bItem -> areEqual(aItem, bItem) } }
+
+private fun areArraysEqual(a: Array<*>, b: Array<*>) =
         when {
-            a is Array<*> && b is Array<*> -> a contentEquals b
-            a is Array<*> && b is Values -> a contentEquals b.elements
-            a is Iterable<*> && b is Values -> a.toList() == b.elements.toList()
-            a is Map<*, *> && b is Values -> a.toList() == b.elements.toList()
-            else -> a == b
+            a.isEmpty() -> b.isEmpty()
+            b.isEmpty() -> false
+            else -> areEqual(a.first(), b.first()) &&
+                    areEqual(a.sliceArray(1 until a.size), b.sliceArray(1 until b.size))
+        }
+
+@Suppress("ComplexMethod")
+private fun Any?.toArray() =
+        when (this) {
+            is Values -> this.elements
+            is Array<*> -> this
+            is ByteArray -> this.toList().toTypedArray()
+            is CharArray -> this.toList().toTypedArray()
+            is ShortArray -> this.toList().toTypedArray()
+            is IntArray -> this.toList().toTypedArray()
+            is LongArray -> this.toList().toTypedArray()
+            is FloatArray -> this.toList().toTypedArray()
+            is DoubleArray -> this.toList().toTypedArray()
+            is BooleanArray -> this.toList().toTypedArray()
+            is Map<*, *> -> null
+            is Set<*> -> null
+            is Iterable<*> -> this.toList().toTypedArray()
+            else -> null
         }

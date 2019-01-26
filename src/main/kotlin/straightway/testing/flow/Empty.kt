@@ -26,17 +26,5 @@ object Empty :
         Relation,
         StateExpr<WithHas>,
         FunExpr("Empty", { a: Any? ->
-            AssertionResult("${stringRep(a)} is empty", !a.asIterable.any())
+            AssertionResult("${a.formatted()} is empty", !a.asIterable.any())
         })
-
-@JvmName("stringRep_nullable")
-private fun stringRep(a: Any?) = if (a === null) "<null>" else stringRep(a)
-
-private fun stringRep(a: Any): String {
-    return when {
-        a is Array<*> -> "[${a.joinToString(", ")}]"
-        a is Iterable<*> -> "[${a.joinToString(", ")}]"
-        a is String -> "\"$a\""
-        else -> a.toString()
-    }
-}

@@ -29,15 +29,21 @@ class Values private constructor(val elements: Array<*>) :
         FunExpr(
                 "Values[${elements.joinToString(", ")}]",
                 { a: Any? ->
-                    val iterable = a.asIterable
+                    val toCheck = a.asIterable
                     AssertionResult(
-                            "[${iterable.joinToString(", ")}] " +
-                            "contains all [${elements.joinToString(", ")}] ",
-                            elements.all { iterable.contains(it) })
+                            "${toCheck.formatted()} contains all ${elements.formatted()}",
+                            toCheck.containsAll(elements.toList()))
                 }) {
 
     companion object {
         operator fun invoke(vararg elements: Any?) = Values(elements)
+
+        private fun Iterable<*>.containsAll(toCheck: Collection<*>): Boolean =
+            when {
+                toCheck.isEmpty() -> true
+                this.any { areEqual(it, toCheck.first()) } -> containsAll(toCheck.drop(1))
+                else -> false
+            }
     }
 }
 

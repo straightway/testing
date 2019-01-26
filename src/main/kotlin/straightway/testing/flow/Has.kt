@@ -26,5 +26,29 @@ infix fun <T : Iterable<*>, TRel : WithHas> T.has(op: StateExpr<TRel>) =
 infix fun <TRel : WithHas> Array<*>.has(op: StateExpr<TRel>) =
         this.asList() has op
 
+infix fun <TRel : WithHas> ByteArray.has(op: StateExpr<TRel>) =
+        this.asList() has op
+
+infix fun <TRel : WithHas> CharArray.has(op: StateExpr<TRel>) =
+        this.asList() has op
+
+infix fun <TRel : WithHas> ShortArray.has(op: StateExpr<TRel>) =
+        this.asList() has op
+
+infix fun <TRel : WithHas> IntArray.has(op: StateExpr<TRel>) =
+        this.asList() has op
+
+infix fun <TRel : WithHas> LongArray.has(op: StateExpr<TRel>) =
+        this.asList() has op
+
+infix fun <TRel : WithHas> FloatArray.has(op: StateExpr<TRel>) =
+        this.asList() has op
+
+infix fun <TRel : WithHas> DoubleArray.has(op: StateExpr<TRel>) =
+        this.asList() has op
+
+infix fun <TRel : WithHas> BooleanArray.has(op: StateExpr<TRel>) =
+        this.asList() has op
+
 infix fun <TRel : WithHas> CharSequence.has(op: StateExpr<TRel>) =
         this.toList() has op

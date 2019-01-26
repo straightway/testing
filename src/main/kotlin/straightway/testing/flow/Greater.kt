@@ -24,5 +24,5 @@ import straightway.expr.StateExpr
  */
 object Greater
     : Relation, StateExpr<WithThan>, FunExpr("Greater", { a, b ->
-    AssertionResult("$a > $b", 0 < a!!.untypedCompareTo(b!!))
+    AssertionResult("${a.formatted()} > ${b.formatted()}", 0 < a.untypedCompareTo(b) ?: -1)
 })

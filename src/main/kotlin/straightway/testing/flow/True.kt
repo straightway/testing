@@ -24,5 +24,5 @@ import straightway.expr.StateExpr
  */
 object True
     : Relation, StateExpr<Unary>, FunExpr("True", { a ->
-        AssertionResult("$a is true", a as Boolean)
+        AssertionResult("${a.formatted()} is true", a as? Boolean ?: false)
     })

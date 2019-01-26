@@ -18,7 +18,6 @@ package straightway.testing.flow
 
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
-import straightway.expr.untyped
 
 /**
  * Check the size of a collection.
@@ -26,6 +25,8 @@ import straightway.expr.untyped
 object Size :
         Relation,
         StateExpr<WithHasAndOf>,
-        FunExpr("Size", untyped { a: Any, s: Int ->
-            AssertionResult("size of $a == $s", a.asIterable.count() == s)
+        FunExpr("Size", { a: Any?, s: Any? ->
+            AssertionResult(
+                    "size of ${a.formatted()} == ${s.formatted()}",
+                    a.asIterable.count() == s)
         })

@@ -17,15 +17,24 @@ package straightway.testing.flow
 
 import org.opentest4j.AssertionFailedError
 
+@Suppress("ComplexMethod")
 internal val Any?.asIterable get() =
         when (this) {
             is Iterable<*> -> this
             is Array<*> -> this.asList()
+            is ByteArray -> this.asList()
+            is CharArray -> this.asList()
+            is ShortArray -> this.asList()
+            is IntArray -> this.asList()
+            is LongArray -> this.asList()
+            is FloatArray -> this.asList()
+            is DoubleArray -> this.asList()
+            is BooleanArray -> this.asList()
             is CharSequence -> this.toList()
             is Map<*, *> -> this.toList()
             else -> throw AssertionFailedError("Cannot convert $this to_ iterable")
         }
 
 @Suppress("UNCHECKED_CAST")
-internal fun Any.untypedCompareTo(other: Any): Int =
-        (this as Comparable<Any>).compareTo(other)
+internal fun Any?.untypedCompareTo(other: Any?): Int? =
+        if (other === null) null else (this as? Comparable<Any>)?.compareTo(other)

@@ -27,13 +27,12 @@ class References private constructor(private val elements: Array<*>) :
         Relation,
         StateExpr<WithHas>,
         FunExpr(
-                "References[${elements.joinToString(", ")}]",
+                "References${elements.formatted()}",
                 { a: Any? ->
                     val iterable = a.asIterable
                     AssertionResult(
-                            "[${iterable.joinToString(", ")}] " +
-                            "contains all [${elements.joinToString(", ")}] by reference",
-
+                            "${iterable.formatted()} " +
+                            "contains all ${elements.formatted()} by reference",
                             elements.all { element -> iterable.any { it === element } })
                 }) {
 

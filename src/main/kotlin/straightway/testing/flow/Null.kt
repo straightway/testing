@@ -24,4 +24,4 @@ import straightway.expr.StateExpr
  * Unary operator checking if its argument is null.
  */
 object Null : Expr, StateExpr<Unary>, FunExpr("Null", { x: Any? ->
-    AssertionResult("$x is null", x === null) })
+    AssertionResult("${x.formatted()} is null", x === null) })

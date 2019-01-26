@@ -28,4 +28,13 @@ class RelationTestFalse {
     @Test
     fun fails() =
             assertFails { expect(true is_ False) }
+
+    @Test
+    fun wrongType() =
+            assertFails { expect(0 is_ False) }
+
+    @Test
+    fun `checked element is formatted`() =
+            expect(((arrayOf(1) is_ False)() as AssertionResult).explanation
+                    is_ Equal to_ "[1] is false")
 }

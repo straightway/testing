@@ -34,6 +34,11 @@ class RelationTestIsSameAs {
     @Test
     fun isNotSameAs_fails() = assertFails { expect(a is_ Not - Same as_ a) }
 
+    @Test
+    fun `explanation items are formatted`() =
+            expect(((arrayOf(1) is_ Same as_ arrayOf(1))() as AssertionResult).explanation
+                    is_ Equal to_ "[1] === [1]")
+
     private data class EqualButNotSame(val value: Int)
     private companion object {
         val a = EqualButNotSame(1)
