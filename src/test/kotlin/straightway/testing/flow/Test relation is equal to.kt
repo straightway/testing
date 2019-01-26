@@ -16,6 +16,7 @@
  */
 package straightway.testing.flow
 
+import org.junit.jupiter.api.Assertions.assertTimeoutPreemptively
 import org.junit.jupiter.api.Test
 import straightway.expr.minus
 import straightway.testing.assertDoesNotThrow
@@ -213,4 +214,11 @@ class `Test relation is equal to` {
     @Test
     fun `string representation of range of EqualWithin item is formatted`() =
             expect((1 is_ EqualWithin(arrayOf(2)) to_ 3)().formatted()
-                    is_ Equal to_ "Failure: 1 == 3 [+/- [2]]") }
+                    is_ Equal to_ "Failure: 1 == 3 [+/- [2]]")
+
+    @Test
+    fun `ranges are compated by borders`() =
+        assertTimeoutPreemptively(Duration.ofMillis(1000)) {
+            expect(Long.MIN_VALUE..Long.MAX_VALUE is_ Equal to_ Long.MIN_VALUE..Long.MAX_VALUE)
+        }
+}

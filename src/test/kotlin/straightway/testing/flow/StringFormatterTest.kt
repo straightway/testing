@@ -84,4 +84,8 @@ class StringFormatterTest {
     @Test
     fun `string is formatted with quotes`() =
             expect("Hello".formatted() is_ Equal to_ "\"Hello\"")
+
+    @Test
+    fun `LongRange is formatted with borders`() =
+            expect((1L..5L).formatted() is_ Equal to_ "1..5")
 }

@@ -86,6 +86,7 @@ private fun Any?.toArray() =
             is BooleanArray -> this.toList().toTypedArray()
             is Map<*, *> -> null
             is Set<*> -> null
+            is ClosedRange<*> -> null
             is Iterable<*> -> this.toList().toTypedArray()
             else -> null
         }

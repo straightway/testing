@@ -27,6 +27,7 @@ fun Any?.formatted(): String = when (this) {
     is FloatArray -> this.toList().formatted()
     is DoubleArray -> this.toList().formatted()
     is BooleanArray -> this.toList().formatted()
+    is ClosedRange<*> -> "${this.start.formatted()}..${this.endInclusive.formatted()}"
     is Iterable<*> -> this.map { it.formatted() }.toString()
     is Map<*, *> ->
         "{" +
