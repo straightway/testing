@@ -16,6 +16,8 @@
 
 package straightway.testing.flow
 
+import straightway.numbers.compareTo
+
 /**
  * Relation checking if two objects are equal.
  */
@@ -51,6 +53,8 @@ private fun areSingleElementsEqual(a: Any?, b: Any?): Boolean {
             isSetEqualToCollection(a.entries, b)
         a !is Map<*, *> && b is Map<*, *> ->
             isSetEqualToCollection(b.entries, a)
+        a is Number && b is Number ->
+            a.compareTo(b) == 0
         else -> a == b
     }
 }

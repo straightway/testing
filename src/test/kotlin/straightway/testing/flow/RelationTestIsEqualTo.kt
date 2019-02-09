@@ -24,7 +24,7 @@ import straightway.testing.assertFails
 import java.time.Duration
 import java.time.LocalDateTime
 
-class `Test relation is equal to` {
+class RelationTestIsEqualTo {
 
     @Test
     fun passes() = assertDoesNotThrow { expect(1 is_ Equal to_ 1) }
@@ -221,4 +221,8 @@ class `Test relation is equal to` {
         assertTimeoutPreemptively(Duration.ofMillis(1000)) {
             expect(Long.MIN_VALUE..Long.MAX_VALUE is_ Equal to_ Long.MIN_VALUE..Long.MAX_VALUE)
         }
+
+    @Test
+    fun `equal numbers of different types are equal`() =
+            expect(1 is_ Equal to_ 1.toByte())
 }

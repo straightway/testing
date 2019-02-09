@@ -88,4 +88,9 @@ class StringFormatterTest {
     @Test
     fun `LongRange is formatted with borders`() =
             expect((1L..5L).formatted() is_ Equal to_ "1..5")
+
+    @Test
+    fun `Values with array inside is properly formatted`() =
+            expect(Values(byteArrayOf(1, 2), byteArrayOf(3)).formatted() is_ Equal
+                    to_ "Values[[1, 2], [3]]")
 }

@@ -27,7 +27,7 @@ class Values private constructor(val elements: Array<*>) :
         Relation,
         StateExpr<WithHas>,
         FunExpr(
-                "Values[${elements.joinToString(", ")}]",
+                "Values[${elements.map { it.formatted() }.joinToString(", ")}]",
                 { a: Any? ->
                     val toCheck = a.asIterable
                     AssertionResult(
