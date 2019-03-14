@@ -68,12 +68,7 @@ private fun areSetsEqual(a: Set<*>, b: Collection<*>) =
         a.size == b.size && a.all { aItem -> b.any { bItem -> areEqual(aItem, bItem) } }
 
 private fun areArraysEqual(a: Array<*>, b: Array<*>) =
-        when {
-            a.isEmpty() -> b.isEmpty()
-            b.isEmpty() -> false
-            else -> areEqual(a.first(), b.first()) &&
-                    areEqual(a.sliceArray(1 until a.size), b.sliceArray(1 until b.size))
-        }
+        a.size == b.size && a.indices.all { areEqual(a[it], b[it]) }
 
 @Suppress("ComplexMethod")
 private fun Any?.toArray() =

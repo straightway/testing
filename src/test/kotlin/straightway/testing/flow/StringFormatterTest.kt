@@ -64,6 +64,7 @@ class StringFormatterTest {
             expect(doubleArrayOf(1.0, 2.0, 3.0).formatted() is_ Equal to_ "[1.0, 2.0, 3.0]")
 
     @Test
+    @Suppress("BooleanLiteralArgument")
     fun `BooleanArray yields string with elements in bracked`() =
             expect(booleanArrayOf(true, false).formatted() is_ Equal to_ "[true, false]")
 
@@ -93,4 +94,10 @@ class StringFormatterTest {
     fun `Values with array inside is properly formatted`() =
             expect(Values(byteArrayOf(1, 2), byteArrayOf(3)).formatted() is_ Equal
                     to_ "Values[[1, 2], [3]]")
+
+    @Test
+    fun `large arrays are cut in the middle`() =
+            expect(IntArray(300) { it }.formatted() is_ Equal
+                    to_ "[${(0..99).joinToString(", ")}, ...(100 more)..., " +
+                    "${(200..299).joinToString(", ")}]")
 }

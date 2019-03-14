@@ -225,4 +225,10 @@ class RelationTestIsEqualTo {
     @Test
     fun `equal numbers of different types are equal`() =
             expect(1 is_ Equal to_ 1.toByte())
+
+    @Test
+    fun `equal for large arrays`() = assertTimeoutPreemptively(Duration.ofMillis(10000)) {
+        expect(ByteArray(0x100000) { it.toByte() } is_ Equal
+                to_ ByteArray(0x100000) { it.toByte() })
+    }
 }

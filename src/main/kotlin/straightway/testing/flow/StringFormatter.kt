@@ -28,11 +28,24 @@ fun Any?.formatted(): String = when (this) {
     is DoubleArray -> this.toList().formatted()
     is BooleanArray -> this.toList().formatted()
     is ClosedRange<*> -> "${this.start.formatted()}..${this.endInclusive.formatted()}"
-    is Iterable<*> -> this.map { it.formatted() }.toString()
+    is Iterable<*> -> iterableFormatted()
     is Map<*, *> ->
         "{" +
-            this.entries.map { it.key.formatted() + "=" + it.value.formatted() }
-                    .joinToString(", ") +
+                this.entries.joinToString(", ") {
+                    it.key.formatted() + "=" + it.value.formatted()
+                } +
         "}"
     else -> if (this === null) "<null>" else toString()
+}
+
+private const val MAX_FULL_SIZE = 200
+private const val ELEMENTS_TO_CUT = MAX_FULL_SIZE / 2
+
+private fun Iterable<*>.iterableFormatted(): String {
+    val asList = toList()
+    return if (asList.size < MAX_FULL_SIZE) map { it.formatted() }.toString()
+    else (asList.slice(0 until ELEMENTS_TO_CUT).map { it.formatted() } +
+            listOf("...(${asList.size - MAX_FULL_SIZE} more)...") +
+            asList.slice((asList.size - ELEMENTS_TO_CUT)..asList.lastIndex).map { it.formatted() })
+            .toString()
 }
