@@ -71,8 +71,8 @@ class TestSize {
 
     @Test
     fun `explanation items are formatted`() =
-            expect(((arrayOf(1) has Size of arrayOf(2))() as AssertionResult).explanation
-                    is_ Equal to_ "size of [1] == [2]")
+            expect(((arrayOf(1) has Size of 1)() as AssertionResult).explanation
+                    is_ Equal to_ "size of (size: 1) [1] == 1")
 
     @Test
     fun `size of ByteArray`() =

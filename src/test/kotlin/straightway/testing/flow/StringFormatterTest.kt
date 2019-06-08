@@ -98,6 +98,6 @@ class StringFormatterTest {
     @Test
     fun `large arrays are cut in the middle`() =
             expect(IntArray(300) { it }.formatted() is_ Equal
-                    to_ "[${(0..99).joinToString(", ")}, ...(100 more)..., " +
-                    "${(200..299).joinToString(", ")}]")
+                    to_ "[${(0..15).joinToString(", ")}, ...(268 more)..., " +
+                    "${(284..299).joinToString(", ")}]")
 }

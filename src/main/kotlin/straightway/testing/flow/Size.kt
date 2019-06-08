@@ -26,7 +26,8 @@ object Size :
         Relation,
         StateExpr<WithHasAndOf>,
         FunExpr("Size", { a: Any?, s: Any? ->
+            val actualSize = a.asIterable.count()
             AssertionResult(
-                    "size of ${a.formatted()} == ${s.formatted()}",
-                    a.asIterable.count() == s)
+                    "size of (size: $actualSize) ${a.formatted()} == ${s.formatted()}",
+                    actualSize == s)
         })

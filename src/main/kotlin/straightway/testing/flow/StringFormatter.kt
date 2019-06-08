@@ -38,14 +38,14 @@ fun Any?.formatted(): String = when (this) {
     else -> if (this === null) "<null>" else toString()
 }
 
-private const val MAX_FULL_SIZE = 200
+private const val MAX_FULL_SIZE = 32
 private const val ELEMENTS_TO_CUT = MAX_FULL_SIZE / 2
 
 private fun Iterable<*>.iterableFormatted(): String {
     val asList = toList()
-    return if (asList.size < MAX_FULL_SIZE) map { it.formatted() }.toString()
-    else (asList.slice(0 until ELEMENTS_TO_CUT).map { it.formatted() } +
-            listOf("...(${asList.size - MAX_FULL_SIZE} more)...") +
-            asList.slice((asList.size - ELEMENTS_TO_CUT)..asList.lastIndex).map { it.formatted() })
-            .toString()
+    return if (asList.size < MAX_FULL_SIZE) asList.map { it.formatted() }.toString()
+            else (asList.slice(0 until ELEMENTS_TO_CUT).map { it.formatted() } +
+                    listOf("...(${asList.size - MAX_FULL_SIZE} more)...") +
+                    asList.slice((asList.size - ELEMENTS_TO_CUT)..asList.lastIndex)
+                            .map { it.formatted() }).toString()
 }
