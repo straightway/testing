@@ -18,6 +18,7 @@ package straightway.testing.flow
 
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
+import straightway.utils.formatted
 
 /**
  * Check the size of a collection.

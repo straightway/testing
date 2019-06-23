@@ -18,6 +18,7 @@ package straightway.testing.flow
 
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
+import straightway.utils.formatted
 
 /**
  * Relation checking if the first object is less than the second one.

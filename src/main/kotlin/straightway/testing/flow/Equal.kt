@@ -17,6 +17,7 @@
 package straightway.testing.flow
 
 import straightway.numbers.compareTo
+import straightway.utils.formatted
 
 /**
  * Relation checking if two objects are equal.

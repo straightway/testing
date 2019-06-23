@@ -18,6 +18,7 @@ package straightway.testing.flow
 
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
+import straightway.utils.formatted
 
 /**
  * Operator checking if the two arguments are equal by reference.

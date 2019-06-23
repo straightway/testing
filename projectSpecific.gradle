@@ -22,5 +22,6 @@ dependencies {
     compile straightway('expr')
     compile straightway('error')
     compile straightway('numbers')
+    compile straightway('utils')
     testCompile mockitoKotlin()
 }

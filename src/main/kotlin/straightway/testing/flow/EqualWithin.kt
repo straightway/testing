@@ -16,6 +16,7 @@
 
 package straightway.testing.flow
 
+import straightway.utils.formatted
 import java.time.Duration
 import java.time.LocalDateTime
 

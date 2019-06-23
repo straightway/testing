@@ -19,6 +19,7 @@ package straightway.testing.flow
 import straightway.expr.Expr
 import straightway.expr.FunExpr
 import straightway.expr.StateExpr
+import straightway.utils.formatted
 
 /**
  * Unary operator checking if its argument is null.
