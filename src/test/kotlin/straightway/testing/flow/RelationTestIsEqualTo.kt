@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test
 import straightway.expr.minus
 import straightway.testing.assertDoesNotThrow
 import straightway.testing.assertFails
+import straightway.utils.formatted
 import java.time.Duration
 import java.time.LocalDateTime
 

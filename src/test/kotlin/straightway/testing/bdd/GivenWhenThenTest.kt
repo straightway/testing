@@ -49,7 +49,7 @@ class GivenWhenThenTest {
             Given {
                 "Aaaaah!"
             } when_ {
-                throw Panic(this)
+                typedPanic(this)
             } then {
                 expect({ it.result } does Throw.type<Panic>())
             }
@@ -144,4 +144,6 @@ class GivenWhenThenTest {
 
         verify(autoCloseable).close()
     }
+
+    private fun typedPanic(state: Any): Int = throw Panic(state)
 }
