@@ -72,11 +72,11 @@ class TestReferences {
 
     @Test
     fun `name items are formatted`() =
-            expect(References(byteArrayOf(1)).name is_ Equal to_ "References[[1]]")
+            expect(References(byteArrayOf(1)).name is_ Equal to_ "References[[01]]")
 
     @Test
     fun `explanation items are formatted`() =
             expect(((listOf(arrayOf(1)) has References(byteArrayOf(1)))()
                     as AssertionResult).explanation
-                    is_ Equal to_ "[[1]] contains all [[1]] by reference")
+                    is_ Equal to_ "[[1]] contains all [[01]] by reference")
 }

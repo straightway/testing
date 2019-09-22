@@ -29,15 +29,6 @@ import java.util.*
 
 class TraceOnFailureTest {
 
-    @ExtendWith(TraceOnFailure::class)
-    class TestTest : TestTraceProvider {
-
-        override val traces = listOf("Traces")
-
-        @Test
-        fun failure() { fail { "Test Failure" } }
-    }
-
     @BeforeEach
     fun setup() {
         sut = TraceOnFailure()
